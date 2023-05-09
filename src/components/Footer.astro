@@ -1,0 +1,80 @@
+---
+const { footerClass = "" } = Astro.props;
+const year = new Date().getFullYear();
+const navLogo = "/images/logo-no-background.svg";
+---
+
+<footer
+    class={` p-3 min-h-20 text-center justify-between place-items-center border-t-2 border-gray-600 bg-offBlack text-white z-40 ${footerClass} mt-auto w-full`}
+>
+    <div class="grid grid-cols-1 md:grid-cols-2 justify-between">
+        <div
+            class="flex gap-12 w-full place-items-center justify-between md:justify-start md:place-items-start py-8 my-auto"
+        >
+            <img class="w-64 mx-auto md:mx-0" alt="logo" src={navLogo} />
+            <ul class="text-left font-semibold underline mx-auto md:mx-0 flex flex-col">
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Me</a></li>
+                <li>
+                    <a href="/pittsburgh-web-development">Web Development</a>
+                </li>
+                <li>
+                    <a href="/pittsburgh-SEO">SEO</a>
+                </li>
+                <li>
+                    <a href="/blog">Blog</a>
+                </li>
+                <li>
+                    <a href="contact-pittsburgh-web-developer">Contact Me</a>
+                </li>
+            </ul>
+        </div>
+        <form
+            name="Newsletter"
+            class="dark w-full flex flex-col px-5 my-1 mb-5 py-5 sm:bg-gradient-to-b from-offBlack/30 to-offBlack/70 sm:text-white rounded-2xl text-left ml-auto md:max-w-md"
+            method="POST"
+            data-netlify="true"
+            netlify
+            data-netlify-honeypot="bot-field"
+        >
+            <h2 class="font-title text-xl text-center">Sign Up for My Newsletter</h2>
+            <input name="bot-field" class="hidden" />
+            <input type="hidden" name="form-name" value="Newsletter" />
+            
+            <label class="relative" for="email"
+                ><span class="text-red-500 absolute -left-3">*</span> Email:
+            </label>
+            <input
+                required
+                id="email"
+                name="email"
+                type="email"
+                placeholder="jon@jonhudak.dev"
+            />
+
+            <button
+                type="submit"
+                class="py-3 px-6 mt-3 button"
+            >
+                Submit
+            </button>
+           
+        </form>
+    </div>
+    <div class="flex pt-3  gap-3 place-content-center mx-auto border-t">
+        <p>Elizabeth, PA</p>
+        <p>
+            <a href="tel:412-405-1059" class="text-white hover:underline font-semibold">412-405-1059</a>
+        </p><p>
+            <a class="text-white hover:underline font-semibold" href="mailto:jon@jonhudak.dev"
+            >jon@jonhudak.dev</a
+            >
+        </p>
+    </div>
+    <p class="mt-auto py-3 px-5">
+        &copy; {year} PhoenixOfAlexandria
+    </p>
+</footer>
+<style>
+   
+</style>

@@ -1,0 +1,30 @@
+---
+import { Picture } from "@astrojs/image/components";
+import heroBG from "../images/PhoenixOfAlexandriaHeroSplash.jpg";
+---
+
+<section class="relative mt-36">
+    
+        <Picture
+            class="absolute h-screen w-full object-cover brightness-50"
+            widths={[500, 900]}
+            alt=""
+            src={heroBG}
+        />
+    <div class="absolute top-0 right-0 left-0 bottom-0 text-center text-white max-w-4xl mx-auto mt-36 ">
+        <h1 class="font-serif pb-4 font-bold text-8xl overflow-x-hidde">
+            Publishing for Queer Authors in Pittsburgh
+        </h1>
+        <h2 class="">
+            Showcasing the best written and visual arts from queer authors and
+            artists in the Pittsburgh
+        </h2>
+        <button type="button">See Our Books</button>
+    </div>
+</section>
+<style>
+    html{
+        
+        @apply w-screen overflow-x-hidden;
+    }
+</style>

@@ -1,35 +1,76 @@
 ---
-export interface Props {
-	title: string;
-}
+import "../styles/global.css";
+import "@fontsource/cormorant-garamond"
+// import { Icon } from "astro-icon";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import Head from "./Head.astro";
 
-const { title } = Astro.props;
+
+
+let showToTop = false;
+// let lastYPos = 0;
+let navbarChange = false;
+
+const {
+  title = "Queer Book Publishing | Phoenix of Alexandria",
+  description = "Custom websites for small businesses in the Greater Pittsburgh Area!",
+  //ogImg = "/images/ogImg.jpg",
+  url,
+  footerClass,
+  background,
+  city
+} = Astro.props;
+//const socialImg = new URL(ogImg, Astro.site)
+//const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+
+
 ---
+<Head title={title}>
+  <body class={`overflow-x-hidden min-h-screen ${background}`}>
+    <Navbar city={city} navbarChange={false} />
+    <main class="">
+      <slot />
+    </main>
+   <!-- <Footer/> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js"></script> -->
+  </body>
+</Head>
 
-<!DOCTYPE html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<slot />
-	</body>
-</html>
+
+
 <style is:global>
-	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
-	}
-	code {
-		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-			Bitstream Vera Sans Mono, Courier New, monospace;
-	}
+  /* .resize-animation-stopper * {
+    animation: none !important;
+    transition: none !important;
+  } */
+
+  html {
+    @apply focus:outline-none focus:ring focus:ring-orange-500 ring-inset;
+  }
+ 
+  
+ 
 </style>
+<!-- <script>
+  import observer from "../utils/observer";
+
+  const fadeUps = document.querySelectorAll(".fadeUp");
+
+  const rotates = document.querySelectorAll(".rotated");
+  observer(fadeUps, "animate", 0.2);
+  observer(rotates, "animate");
+</script>
+<script>//any non-internal link opens in a new window
+  const internal = location.host.replace("www.","");
+  const internalRegEx= new RegExp(internal,"i");
+  const links = document.querySelectorAll("a");
+  links.forEach((link)=>{
+    let href=link.host;
+    if(!internalRegEx.test(href)){
+      link.target="_blank";
+    }
+  })
+
+</script> -->

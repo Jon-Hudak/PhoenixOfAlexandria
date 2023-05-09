@@ -1,0 +1,41 @@
+---
+const { title, description, canonicalURL, socialImg } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{title}</title>
+        <meta name="description" content={description} />
+        <meta name="author" content="Jon Hudak" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="sitemap" href="/sitemap-index.xml">
+        <meta property="og:title" content={title} />
+        <meta property="og:image" content={socialImg} />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content={description} />
+
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="canonical" href={Astro.url} />
+        <link rel="icon" type="image/jpg" href="/favicon.jpg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-MMXF27Q66L"
+    ></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "G-MMXF27Q66L");
+    </script>
+    <slot />
+
+
+</html>
