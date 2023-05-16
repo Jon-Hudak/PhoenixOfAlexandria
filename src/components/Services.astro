@@ -1,0 +1,33 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const services = [
+    {
+        service: "Publishing",
+        text: "We offer a variety of services regarding the publishing process. We will ensure that your work is copyrighted and registered. While we primarily focus on digital media, it may make sense for your project to print it physically as well. In that case, feel free to inquire about the availability!",
+    },
+    {
+        service: "Editing",
+        text: "Our team of professional editors specializes in working with queer authors and artists. we offer a range of editing services to fit your needs, from proofreading to copyediting and more. We will ensure that your project is polished and ready to share with the world.",
+    },
+    {
+        service: "Collections",
+        text: "Our collections showcase the work of queer authors and artists in the Pittsburgh region. We are always on the lookout for fresh, diverse voices. Our collections reflect our commitment to promoting underrepresented voices and celebrating the diversity of queer experiences.",
+    },
+];
+---
+
+
+    <section id="services" class="bg-neutral-200 mt-8 pb-2">
+        <h2 class="h2">Services</h2>
+        <div class="grid grid-cols-1">
+        {
+            services.map((service) => (
+                <article>
+                    <h3 class="font-sans font-bold text-2xl mx-3 ">{service.service}</h3>
+                    <p class=" mt-2 mb-8">{service.text}</p>
+                    </article>
+            ))
+        }</div>
+    </section>
+

@@ -1,12 +1,10 @@
 ---
 import "../styles/global.css";
-import "@fontsource/cormorant-garamond"
+import "@fontsource/cormorant-garamond";
 // import { Icon } from "astro-icon";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import Head from "./Head.astro";
-
-
 
 let showToTop = false;
 // let lastYPos = 0;
@@ -19,26 +17,22 @@ const {
   url,
   footerClass,
   background,
-  city
+  city,
 } = Astro.props;
 //const socialImg = new URL(ogImg, Astro.site)
 //const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
-
-
 ---
+
 <Head title={title}>
   <body class={`overflow-x-hidden min-h-screen ${background}`}>
     <Navbar city={city} navbarChange={false} />
     <main class="">
       <slot />
     </main>
-   <!-- <Footer/> -->
+    <Footer/>
     <!-- <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js"></script> -->
   </body>
 </Head>
-
-
 
 <style is:global>
   /* .resize-animation-stopper * {
@@ -49,9 +43,21 @@ const {
   html {
     @apply focus:outline-none focus:ring focus:ring-orange-500 ring-inset;
   }
- 
-  
- 
+  .button {
+    @apply sm:w-auto bg-orange-400 hover:bg-orange-600 transition py-1 px-4 font-extrabold font-serif text-lg text-black inline-block rounded-full shadow-2xl cursor-pointer;
+  }
+  .button-md {
+    @apply sm:w-auto bg-orange-400 hover:bg-orange-600 transition py-3 px-4 font-extrabold font-serif text-2xl text-black inline-block rounded-full shadow-2xl cursor-pointer;
+  }
+  .button-lg {
+    @apply sm:w-auto bg-orange-400 hover:bg-orange-600 transition py-6 px-10 font-extrabold font-serif text-3xl text-black inline-block rounded-full border-2 border-orange-900/50 shadow-2xl cursor-pointer;
+  }
+  .h2 {
+    @apply font-serif text-4xl text-center font-bold mx-2 py-12;
+  }
+  p {
+    @apply px-3;
+  }
 </style>
 <!-- <script>
   import observer from "../utils/observer";
