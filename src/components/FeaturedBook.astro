@@ -1,17 +1,28 @@
 ---
-import {Picture } from "@astrojs/image/components";
-import coverImg from "../images/RivetsCover.jpg"
-
+import { Picture } from "@astrojs/image/components";
+import coverImg from "../images/RivetsCover.jpg";
 ---
-<section id="featured" class="pb-8">
-<h2 class="h2">Our Premier Queer Collection: Rivets</h2>
-    <div class="flex flex-col gap-5">
-        <Picture src={coverImg} widths={[300,500]}/>
-        <article>
-            <p>The Rivets collective showcases the best of queer literature and visual art from the Pittsburgh area. This powerful compilation features a diverse range of literary voices as well as stunning visual artwork from some of the city's most talented queer authors and artists. From poetry to fiction to graphic narratives, Rivets offers readers a glimpse into the rich and vibrant queer community of Pittsburgh. This collection is not only a celebration of the city's creative spirit, but also a bold and inspiring declaration of queer visibility and pride.</p>
-            <a href="/" class="button mx-3 mt-6">View the Rivets Page</a>
+
+<section id="featured" class="pb-8 md:h-[600px]">
+    <h2 class="h2">Our Premier Queer Collection: Rivets</h2>
+    <div class="flex flex-col md:flex-row gap-5 max-w-5xl mx-auto">
+        <div class="md:w-1/3 shrink ">
+            <Picture class="max-w-xs mx-auto rounded-lg shrink shadow-lg w-full" src={coverImg} widths={[300, 500]} height={400} aspectRatio={"3:4"}/>
+        </div>
+        <article class="px-3 md:w-2/3 flex flex-col">
+            <p>
+                The Rivets collective showcases the best of queer literature and
+                visual art from the Pittsburgh area. This powerful compilation
+                features a diverse range of literary voices as well as stunning
+                visual artwork from some of the city's most talented queer
+                authors and artists. From poetry to fiction to graphic
+                narratives, Rivets offers readers a glimpse into the rich and
+                vibrant queer community of Pittsburgh. This collection is not
+                only a celebration of the city's creative spirit, but also a
+                bold and inspiring declaration of queer visibility and pride.
+            </p>
+            <a href="/" class="button mt-6 ml-auto">View the Rivets Page</a
+            >
         </article>
-
     </div>
-
 </section>

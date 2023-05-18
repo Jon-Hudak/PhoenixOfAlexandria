@@ -20,12 +20,12 @@ const services = [
 
     <section id="services" class="bg-neutral-200 mt-8 pb-2">
         <h2 class="h2">Services</h2>
-        <div class="grid grid-cols-1">
+        <div class="grid grid-cols-1 md:grid-cols-3 px-3 gap-5 md:gap-10 max-w-7xl mx-auto">
         {
             services.map((service) => (
-                <article>
-                    <h3 class="font-sans font-bold text-2xl mx-3 ">{service.service}</h3>
-                    <p class=" mt-2 mb-8">{service.text}</p>
+                <article class="md:max-w-[18rem] md:mx-auto">
+                    <h3 class="font-sans font-bold text-2xl md:text-center">{service.service}</h3>
+                    <p class="px-0 mt-4 mb-8">{service.text}</p>
                     </article>
             ))
         }</div>

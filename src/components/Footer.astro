@@ -1,19 +1,30 @@
 ---
-import {Picture } from "@astrojs/image/components";
+import { Picture } from "@astrojs/image/components";
 const { footerClass = "" } = Astro.props;
 const year = new Date().getFullYear();
 import footerLogo from "../images/PhoenixOfAlexandrialogo.png";
+import { Icon } from "astro-icon";
 ---
 
 <footer
-    class={` p-3 px-8 min-h-20 text-center justify-between place-items-center border-t-2 border-gray-600 z-40 ${footerClass} mt-auto w-full`}
+    class={`min-h-20 text-center justify-between place-items-center border-t border-neutral-900 z-40 ${footerClass} mt-auto w-full`}
 >
-    <div class="">
+    <div
+        class="flex h-full flex-col md:flex-row gap-12 w-full place-items-center justify-between md:justify-start md:place-items-star py-8 my-auto px-8"
+    ><Picture
+                    widths={[200, 300]}
+                    aspectRatio={"4:3"}
+                    class="max-w-xs mx-auto  md:mx-0 hidden xl:inline-block"
+                    alt="logo"
+                    src={footerLogo}
+                />
         <div
-            class="flex gap-12 w-full place-items-center justify-between md:justify-start md:place-items-start py-8 my-auto"
+            class="flex lg:flex-col h-full justify-around lg:justify-between px-6 place-items-center w-full lg:gap-12"
         >
-            <Picture widths={[200,300]} aspectRatio={"4:3"} class="w-64 mx-auto md:mx-0" alt="logo" src={footerLogo} />
-            <ul class="text-left font-semibold underline mx-auto md:mx-0 flex flex-col justify-between h-full">
+            
+            <ul
+                class=" text-left font-semibold underline mx-aut md:mx-0 flex flex-col lg:flex-row gap-5 md:gap-6 lg:gap-12 lg:font-semibold lg:text-xl justify-between"
+            >
                 <li><a href="/">Home</a></li>
                 <li><a href="/">About</a></li>
                 <li>
@@ -25,55 +36,69 @@ import footerLogo from "../images/PhoenixOfAlexandrialogo.png";
                 <li>
                     <a href="/">Contact</a>
                 </li>
-                
+            </ul>
+            <ul class="flex flex-col lg:flex-row gap-6 ">
+                <li class="w-8">
+                    <a href="">
+                        <Icon class="rounded-full" name="facebook" />
+                    </a>
+                </li>
+                <li class="w-8">
+                    <a href="">
+                        <Icon class="rounded-full" name="twitter" />
+                    </a>
+                </li>
+                <li class="w-8">
+                    <a href="">
+                        <Icon class="rounded-full" name="instagram" />
+                    </a>
+                </li>
             </ul>
         </div>
-        <!-- <form
+
+        <form
             name="Newsletter"
-            class="dark w-full flex flex-col px-5 my-1 mb-5 py-5 sm:bg-gradient-to-b from-offBlack/30 to-offBlack/70 sm:text-white rounded-2xl text-left ml-auto md:max-w-md"
+            class="dark w-full flex flex-col px-5 sm:bg-gradient-to-b from-white/30 to-white/70 text-black rounded-2xl text-left ml-auto md:max-w-md"
             method="POST"
             data-netlify="true"
             netlify
             data-netlify-honeypot="bot-field"
         >
-            <h2 class="font-title text-xl text-center">Sign Up for My Newsletter</h2>
-            <input name="bot-field" class="hidden" />
-            <input type="hidden" name="form-name" value="Newsletter" />
-            
-            <label class="relative" for="email"
-                ><span class="text-red-500 absolute -left-3">*</span> Email:
-            </label>
-            <input
-                required
-                id="email"
-                name="email"
-                type="email"
-                placeholder="jon@jonhudak.dev"
-            />
+            <div class="w-full h-full">
+                <h2 class="font-serif text-2xl font-bold text-center">
+                    Sign Up for Our Newsletter
+                </h2>
+                <input name="bot-field" class="hidden" />
+                <input type="hidden" name="form-name" value="Newsletter" />
 
-            <button
-                type="submit"
-                class="py-3 px-6 mt-3 button"
-            >
+                <label class="relative" for="email"
+                    ><span class="text-red-500 absolute -left-3">*</span> Email:
+                </label>
+                <input
+                    required
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="info@phoenixofalexandria.com"
+                />
+            </div>
+
+            <button type="submit" class="py-3 px-6 mt-5 button bg-orange-500">
                 Submit
             </button>
-           
-        </form> -->
+        </form>
     </div>
-    <!-- <div class="flex pt-3  gap-3 place-content-center mx-auto border-t">
-        <p>Elizabeth, PA</p>
-        <p>
-            <a href="tel:412-405-1059" class="text-white hover:underline font-semibold">412-405-1059</a>
-        </p><p>
-            <a class="text-white hover:underline font-semibold" href="mailto:jon@jonhudak.dev"
-            >jon@jonhudak.dev</a
-            >
-        </p>
-    </div> -->
-    <p class="mt-auto py-3 px-5">
+
+    <p class="mt-auto py-5 px-3 border-t border-neutral-500 text-left text-white bg-neutral-800">
         &copy; {year} Phoenix Of Alexandria
     </p>
 </footer>
 <style>
-   
+    input,
+    textarea {
+        @apply w-full rounded-md py-2 px-1 lg:px-4 mb-5 text-black border border-neutral-500 !important;
+    }
+    label {
+        @apply mb-1;
+    }
 </style>
