@@ -6,6 +6,10 @@ module.exports = {
 		extend: {
 			fontFamily:{
 				serif: ["Cormorant Garamond", "Cormorant", ...defaultTheme.fontFamily.serif]
+			},
+			colors:{
+				offBlack: "#03090f",
+				secondary: "#EDEDED"
 			}
 		},
 	},

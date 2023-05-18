@@ -1,0 +1,79 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Contact from "../components/Contact.astro";
+import { Image } from "@astrojs/image/components";
+import contactImg from "../images/queer-author-publication.jpg";
+---
+
+<Layout>
+    <section
+        class="bg-white text-white pt-24 md:pt-36"
+    >
+        <h2 class="h2 text-black">Contact Us</h2>
+        <div class="flex flex-col md:flex-row lg:place-items-center justify-center w-full mx-auto md:gap-0 lg:gap-24 xl:gap-56">
+            <div class="md:min-h-full object-cover">
+                <Image
+                    class="rounded-xl hidden md:block md:h-full object-cover"
+                    src={contactImg}
+                    width={500}
+                    aspectRatio={"3:4"}
+                    alt="Two hands with a rainbow"
+                />
+            </div>
+            <div class="pb-8">
+                <form
+                    name="Contact"
+                    class="py-8 md:w-[40rem] flex flex-col px-5 sm:px-5 md:px-10 md:max-w-xl mx-aut bg-gradient-to-b from-offBlack/60 to-offBlack/80 text-white rounded-2xl backdrop-blur-xl filter-none"
+                    method="POST"
+                    action="/thank-you"
+                    data-netlify="true"
+                    netlify
+                    data-netlify-honeypot="bot-field"
+                >
+                    <input name="bot-field" class="hidden" />
+                    <input type="hidden" name="form-name" value="Contact" />
+                    <label class="formLabel relative" for="name"
+                        ><span class="text-red-500 absolute -left-3">*</span> Name:</label
+                    >
+                    <input
+                        required
+                        name="name"
+                        type="text"
+                        placeholder="Full Name"
+                    />
+
+                    <label class="formLabel relative" for="email"
+                        ><span class="text-red-500 absolute -left-3">*</span> Email:
+                    </label>
+                    <input
+                        required
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="example@example.com"
+                    />
+                    <label class="formLabel" for="message"> Message:</label>
+                    <textarea
+                        id="message"
+                        name="message"
+                        class=""
+                        rows="6"
+                        placeholder="What can we help you with?"></textarea>
+
+                    <button type="submit" class="button-md bg-orange-400 mt-8">
+                        Submit
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+</Layout>
+<style>
+    input,
+    textarea {
+        @apply rounded-md py-2 px-4 mb-5 text-black border border-neutral-500 !important;
+    }
+    label {
+        @apply mb-1;
+    }
+</style>
