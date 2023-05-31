@@ -2,9 +2,14 @@
 import "../styles/global.css";
 import "@fontsource/cormorant-garamond";
 // import { Icon } from "astro-icon";
+import Cart from "../components/Cart.jsx";
 import Navbar from "../components/Navbar.astro";
+import Modal from "../components/Modal.astro";
 import Footer from "../components/Footer.astro";
 import Head from "./Head.astro";
+import {isCartOpen} from "../stores/cartStore"
+
+const allProducts = await Astro.glob("../pages/store/collections/*.md");
 
 let showToTop = false;
 // let lastYPos = 0;
@@ -25,11 +30,20 @@ const {
 
 <Head title={title}>
   <body class={`overflow-x-hidde min-h-screen ${background}`}>
-    <Navbar city={city} navbarChange={false} />
+    <!-- <div
+      class="fixed top-0 right-0 left-0 md:bottom-0 z-10 pointer-events-none"
+    > -->
+    <!-- <Modal> -->
+<Cart products={allProducts} client:load />
+    <!-- </Modal> -->
+      <Navbar city={city} navbarChange={false} products={allProducts} />
+      
+    <!-- </div> -->
     <main class="">
       <slot />
     </main>
-    <Footer/>
+
+    <Footer />
     <!-- <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js"></script> -->
   </body>
 </Head>
@@ -52,8 +66,8 @@ const {
   .button-lg {
     @apply sm:w-auto bg-orange-400 hover:bg-orange-600 transition py-6 px-10 font-extrabold font-serif text-3xl text-black inline-block rounded-full border-2 border-orange-900/50 shadow-2xl cursor-pointer text-center;
   }
-  .h1{
-    @apply font-serif text-5xl md:text-6xl text-center md:text-left py-10
+  .h1 {
+    @apply font-serif text-5xl md:text-6xl text-center md:text-left py-10 px-5;
   }
   .h2 {
     @apply font-serif text-4xl lg:text-5xl text-center md:text-left font-bold px-2 md:px-5 py-12;
@@ -83,3 +97,4 @@ const {
   })
 
 </script> -->
+
