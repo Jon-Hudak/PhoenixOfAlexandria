@@ -1,37 +1,65 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import AddToCartBtn from "../../components/AddToCartBtn.jsx";
 
-const allPosts = await Astro.glob("./collections/*.md");
+const allProducts= await Astro.glob("../*/collections/*.md");
 const filterAvailable = true;
 const filterHidden = true;
 // const filterFuturePosts = false;
 // const currentDate = new Date();
 const title = "Shop Books by Queers";
 const description = "A store dedicated to books written by and for queers.";
-
-console.log(allPosts[0].frontmatter.imgs[0]);
 ---
 
 <Layout title={title} description={description}>
     <section class="mt-24 md:mt-36">
-        <h1 class="h1">Store</h1>
-        <div class="grid md:grid-cols-2 gap-24 max-w-5xl mx-auto pb-24">
+        <h1 class="h1">Shop Queer Books</h1>
+        <div class="grid md:grid-cols-2 gap-24 max-w-4xl mx-auto pb-24">
             {
-                allPosts.map((post) => {
+                allProducts.map((product) => {
+                    
                     return (
                         <article class="mx-auto">
-                            <div class="aspect-[3/4] max-w-xs rounded-lg overflow-hidden shadow-xl">
-                               
-                            </div>
-                            <div class="text-center flex flex-col gap-2">
-                                <h2 class="font-semibold text-3xl text-center">
-                                    {post.frontmatter.title}
-                                </h2>
-                                <p class="font-semibold text-xl">
-                                    ${post.frontmatter.price}
-                                </p>
-                                <button class="button">Add to Cart</button>
-                            </div>
+                            <a href={product.url} class="w-full h-full hover:contrast-150 transition">
+                                <div class="aspect-[3/4] w-[14rem] rounded-lg overflow-hidden shadow-xl">
+                                    {
+                                        //if no imgs listed in md file, then "coming soon"
+                                        product.frontmatter.imgs ? (
+                                            <img
+                                                class="h-full w-full"
+                                                src={
+                                                    product.frontmatter.imgs[0]
+                                                }
+                                                alt=""
+                                            />
+                                        ) : (
+                                            <div class="relative w-full h-full flex flex-col bg-gradient-to-br from-neutral-100 to-neutral-400">
+                                                <span class="m-auto -rotate-45 text-4xl font-semibold">
+                                                    Coming Soon
+                                                </span>
+                                            </div>
+                                        )
+                                    }
+                                </div></a>
+                                <div class="text-center flex flex-col gap-2">
+                                    <h2 class="font-semibold text-3xl text-center">
+                                        {product.frontmatter.product}
+                                    </h2>
+                                    <p class="font-semibold text-xl pb-3">
+                                        ${product.frontmatter.prices.digital}
+                                    </p>
+                                    {product.frontmatter.available ? (
+                                        <AddToCartBtn client:load id={product.frontmatter.id}/>
+                                        // <button data-id={product.frontmatter.id}  class="button addCart">
+                                        //     Add to Cart
+                                        // </button>
+                                    ) : (
+                                        <a href={product.url} class="button">
+                                            View Item Page
+                                        </a>
+                                    )}
+                                </div>
+                            
                         </article>
                     );
                 })
