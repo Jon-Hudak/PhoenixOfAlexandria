@@ -1,13 +1,15 @@
 ---
 import { Image } from "@astrojs/image/components";
 import { Icon } from "astro-icon";
-const { navbarChange } = Astro.props;
+import Cart from "../components/Cart.jsx";
+import CartShow from "./CartShow";
+const { navbarChange, products } = Astro.props;
 const navLogo = "/images/PhoenixOfAlexandrialogo.png";
 ---
 
 <header
   id="navHeader"
-  class="fixed w-screen bg-white md:bg-white/80 md:backdrop-blur-md top-0 z-50 border-b border-black shadow-xl"
+  class="fixed inset-0 bottom-auto bg-white md:bg-white/80 md:backdrop-blur-md z-10 border-b border-black shadow-xl pointer-events-auto"
 >
   <nav
     id="nav"
@@ -20,19 +22,38 @@ const navLogo = "/images/PhoenixOfAlexandrialogo.png";
         src={navLogo}
       />
     </a>
-    <button class="flex md:hidden place-content-end ml-auto mr-4 sm:mr-8">
-      <Icon
-        class="w-10 max-w-xs "
-        name="clarity:shopping-cart-line"
-      /></button
+    
+
+    <ul
+      id="primary-navigation"
+      class="ml-auto md:gap-8 lg:gap-16 md:pr-10 translate-x-full md:translate-x-0 bg-black/70 md:bg-transparent fixed top-0 bottom-0 left-0 sm:left-1/3 right-0 md:flex flex-col md:relative md:inset-0 md:flex-row pt-24 md:pt-0 place-items-center transition border border-neutral-500 md:border-0 rounded-l-3xl opacity-0 md:opacity-100 backdrop-blur-lg md:backdrop-blur-none overflow-y-scrol md:overflow-y-visible overflow-x-hidden md:overflow-x-visible"
     >
+      <li class="navLi delay-100">
+        <a id="first" href="/about">About</a>
+      </li>
+
+      <li class="navLi delay-200 group flex-col">
+        <a href="/services">Services</a>
+      </li>
+
+      <li class="navLi delay-200 group flex-col">
+        <a href="/store">Store</a>
+      </li>
+
+      <li class="navLi delay-250">
+        <a href="/contact">Contact</a>
+      </li>
+    </ul>
+    <CartShow client:load>
+      <Icon class="w-10 max-w-xs my-auto pointer-events-none" name="clarity:shopping-cart-line" />
+    </CartShow>
     <button
       role="navigation"
       aria-label="toggle Navigation"
       aria-controls="primary-navigation"
       aria-expanded="false"
       id="hamburgerButton"
-      class="block md:hidden z-50"
+      class="block md:hidden z-20"
       ><span class="sr-only">Menu</span>
       <svg
         id="hamburgerSvg"
@@ -52,45 +73,22 @@ const navLogo = "/images/PhoenixOfAlexandrialogo.png";
         ></path>
       </svg>
     </button>
-
-    <ul
-      id="primary-navigation"
-      class="md:gap-8 lg:gap-16 md:pr-10 translate-x-full md:translate-x-0 bg-black/70 md:bg-transparent fixed top-0 bottom-0 left-0 sm:left-1/3 right-0 md:flex flex-col md:relative md:inset-0 md:flex-row pt-24 md:pt-0 place-items-center transition border border-neutral-500 md:border-0 rounded-l-3xl opacity-0 md:opacity-100 backdrop-blur-lg md:backdrop-blur-none overflow-y-scrol md:overflow-y-visible overflow-x-hidden md:overflow-x-visible"
-    >
-      <li class="navLi delay-100">
-        <a href="/about">About</a>
-      </li>
-
-      <li class="navLi delay-200 group flex-col">
-        <a href="/services">Services</a>
-      </li>
-
-      <li class="navLi delay-200 group flex-col">
-        <a href="/store">Store</a>
-      </li>
-
-      <li class="navLi delay-250">
-        <a href="/contact">Contact</a>
-      </li>
-      <li class="navLi delay-250 hidden md:inline">
-        <button class="flex place-content-end">
-          <Icon
-            class="w-10 max-w-xs ml-auto"
-            name="clarity:shopping-cart-line"
-          /></button
-        >
-      </li>
-    </ul>
+    
   </nav>
+  <!-- <Cart products={products}  client:load/> -->
 </header>
 
 <style>
-  #hamburgerButton[aria-expanded="true"] + ul,
-  #hamburgerButton[aria-expanded="true"] + ul > .navLi {
+  /* #hamburgerButton[aria-expanded="true"] ~ ul,
+  #hamburgerButton[aria-expanded="true"] ~ ul  .navLi {
     @apply translate-x-0 opacity-100 visible text-white md:text-black;
-  }
+  } */
+  ul:has(~ #hamburgerButton[aria-expanded="true"]), ul:has(~ #hamburgerButton[aria-expanded="true"]) .navLi{
+    @apply translate-x-0 opacity-100 visible text-white md:text-black;
+  } 
+ 
   .navLi {
-    @apply bg-black/20 hover:bg-black/50 focus:bg-black/50 md:hover:bg-transparent md:focus:bg-transparent md:hover:text-orange-500 md:focus:text-orange-500 py-8 md:bg-transparent md:py-0 border md:border-0 border-x-0 border-y-neutral-700 text-right text-3xl md:text-xl font-bold;
+    @apply text-white md:text-black bg-black/20 hover:bg-black/50 focus:bg-black/50 md:hover:bg-transparent md:focus:bg-transparent md:hover:text-orange-500 md:focus:text-orange-500 py-8 md:bg-transparent md:py-0 border md:border-0 border-x-0 border-y-neutral-700 text-right text-3xl md:text-xl font-bold;
   }
   #hamburgerSvg {
     @apply stroke-black;
