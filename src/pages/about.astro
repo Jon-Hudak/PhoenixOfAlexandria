@@ -2,7 +2,7 @@
 import { Image, Picture } from "@astrojs/image/components";
 import Layout from "../layouts/Layout.astro";
 
-import aboutImg from "../images/person-holding-rivets.jpg";
+import aboutImg from "../images/SamPoA.jpg";
 
 const editors = [
     {
@@ -21,23 +21,28 @@ const editors = [
 <Layout>
     <section id="about" class="mt-24 md:mt-36">
         <h1 class="h1 px-5">About Phoenix of Alexandria</h1>
-        <div class="flex flex-col lg:flex-row gap-16 pb-10 max-w-5xl mx-auto">
-            <div class="md:rounded-lg md:w-80 mx-auto">
+        <div class="flex flex-col lg:flex-row gap-16 pb-10 max-w-5xl mx-auto mt-10">
+            <figure class="md:rounded-lg md:w-80 mx-auto">
                 <Picture
-                    alt=""
+                class=""
+                    alt="Sam Logsdon at PGH Book Fest"
                     src={aboutImg}
-                    widths={[300, 500]}
+                    widths={[300]}
                     aspectRatio={"3:4"}
+                    position={"left"}
                 />
-            </div>
-            <article class="max-w-2xl text-lg">
+                <figcaption class="text-sm italic text-center mt-2">Founder, Sam Logsdon, at the PGH Book Fest</figcaption>
+            </figure>
+            <article class="max-w-2xl text-lg mx-auto">
                 <p>
                     In 2019, a queer voice actor from Pittsburgh, Sam Logsdon, had an idea. With so many authors and artists living in one area, <strong>there should be more opportunities for collaboration.</strong> They decided to gather their friends and acquaintances and asked how to turn raw talent into something bigger. Realizing that promoting local artists was merely a starting point, the idea for Phoenix of Alexandria was developed! It's going to be more than just another publishing company: PoA is a queer-led, queer-focused business that plans to amplify voices in the community. Along with a team of editors (Dani Mauroni, John Barham, and Rachel Lange), and dedicated contributors, Phoenix of Alexandria has been able to create their first publication: Rivets! This is a Pittsburgh-born literary collection (with a few non-local contributions) that highlights the talent of queer authors and visual artists. 
                 </p>
             </article>
         </div>
     </section>
-    <section id="meet-the-editors" class="bg-secondary pb-16">
+
+    <!-- meet the editors section
+     <section id="meet-the-editors" class="bg-secondary pb-16">
         <h2 class="h2">Meet the Editors</h2>
         <div class="flex flex-col gap-10 md:gap-32 md:px-5 max-w-5xl mx-auto">
             {
@@ -64,5 +69,5 @@ const editors = [
                 })
             }
         </div>
-    </section>
+    </section> -->
 </Layout>
