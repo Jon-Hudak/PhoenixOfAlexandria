@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar.astro";
 import Modal from "../components/Modal.astro";
 import Footer from "../components/Footer.astro";
 import Head from "./Head.astro";
-import {isCartOpen} from "../stores/cartStore"
+import { isCartOpen } from "../stores/cartStore";
 
 const allProducts = await Astro.glob("../pages/store/collections/*.md");
 
@@ -26,6 +26,7 @@ const {
 } = Astro.props;
 //const socialImg = new URL(ogImg, Astro.site)
 //const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
 ---
 
 <Head title={title}>
@@ -34,10 +35,10 @@ const {
       class="fixed top-0 right-0 left-0 md:bottom-0 z-10 pointer-events-none"
     > -->
     <!-- <Modal> -->
-<Cart products={allProducts} client:load />
+    <Cart products={allProducts} client:load />
     <!-- </Modal> -->
-      <Navbar city={city} navbarChange={false} products={allProducts} />
-      
+    <Navbar city={city} navbarChange={false} products={allProducts} />
+
     <!-- </div> -->
     <main class="">
       <slot />
@@ -53,7 +54,7 @@ const {
     animation: none !important;
     transition: none !important;
   } */
-
+ 
   html {
     @apply focus:outline-none focus:ring focus:ring-orange-500 ring-inset;
   }
@@ -75,6 +76,8 @@ const {
   p {
     @apply px-3;
   }
+
+
 </style>
 <!-- <script>
   import observer from "../utils/observer";
@@ -97,4 +100,3 @@ const {
   })
 
 </script> -->
-

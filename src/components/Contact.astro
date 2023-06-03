@@ -2,66 +2,73 @@
 import { Image } from "@astrojs/image/components";
 import contactImg from "../images/queer-author-publication.jpg";
 
-const { bgColor = "[#4F4A45]" } = Astro.props;
+const { isPage } = Astro.props;
 ---
 
-<section class={`flex flex-col md:flex-row bg-${bgColor} `}>
-    
-    
-        <div class="relative object-cover h-full">
-            <Image
-                class="hidden md:block object-cover absolut h-full"
-                src={contactImg}
-                alt="Two hands with a rainbow"
+<section class={`flex flex-col md:flex-row bg-[#4F4A45] `}>
+    <div class="relative object-cover h-">
+        <Image
+            class="hidden md:block object-cove absolut h-full"
+            src={contactImg}
+            alt="Two hands with a rainbow"
+            fit={"cover"}
+        />
+    </div>
+    <div class="md:w-4/5">
+        <form
+            name="Contact"
+            class="py-8 flex flex-col px-5 sm:px-5 md:px-10 max-w-xl mx-auto text-white"
+            method="POST"
+            action="/thank-you"
+            data-netlify="true"
+            netlify
+            data-netlify-honeypot="bot-field"
+        >
+            {
+                isPage ? (
+                    <h1 class="h2 text-center py-5 lg:py-12 ">Contact Us</h1>
+                ) : (
+                    <h2 class="h2 text-center py-5 lg:py-12 ">Contact Us</h2>
+                )
+            }
+
+            <input name="bot-field" class="hidden" />
+            <input type="hidden" name="form-name" value="Contact" />
+            <label class="formLabel relative" for="name"
+                ><span class="text-red-500 absolute -left-3">*</span> Name:</label
+            >
+            <input required name="name" type="text" placeholder="Full Name" />
+
+            <label class="formLabel relative" for="email"
+                ><span class="text-red-500 absolute -left-3">*</span> Email:
+            </label>
+            <input
+                required
+                id="email"
+                name="email"
+                type="email"
+                placeholder="example@example.com"
             />
-        </div>
-        <div class="md:w-4/5 ">
-            
-            <form
-                name="Contact"
-                class="py-8 flex flex-col px-5 sm:px-5 md:px-10 max-w-xl mx-auto sm:bg-gradient-tob from-offBlack/60 to-offBlack/80 sm:text-white rounded-2xl backdrop-blur-xl filter-none"
-                method="POST"
-                action="/thank-you"
-                data-netlify="true"
-                netlify
-                data-netlify-honeypot="bot-field"
-            ><h2 class="h2 text-center py-5 lg:py-12 ">Contact Us</h2>
-                <input name="bot-field" class="hidden" />
-                <input type="hidden" name="form-name" value="Contact" />
-                <label class="formLabel relative" for="name"
-                    ><span class="text-red-500 absolute -left-3">*</span> Name:</label
+            <label class="formLabel" for="message"> Message:</label>
+            <textarea
+                id="message"
+                name="message"
+                class=""
+                rows="6"
+                placeholder="What can we help you with?"></textarea>
+
+            <button type="submit" class="button-md bg-orange-400 mt-8">
+                Submit
+            </button>
+            <p class="text-white text-center mt-6">
+                Or send us an email at <a
+                    class="underline font-semibold"
+                    href="mailto:phoenixofalexandriapgh@gmail.com"
+                    >phoenixofalexandriapgh@gmail.com</a
                 >
-                <input
-                    required
-                    name="name"
-                    type="text"
-                    placeholder="Full Name"
-                />
-
-                <label class="formLabel relative" for="email"
-                    ><span class="text-red-500 absolute -left-3">*</span> Email:
-                </label>
-                <input
-                    required
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="example@example.com"
-                />
-                <label class="formLabel" for="message"> Message:</label>
-                <textarea
-                    id="message"
-                    name="message"
-                    class=""
-                    rows="6"
-                    placeholder="What can we help you with?"></textarea>
-
-                <button type="submit" class="button-md bg-orange-400 mt-8">
-                    Submit
-                </button>
-            </form>
-        </div>
-
+            </p>
+        </form>
+    </div>
 </section>
 
 <style>
