@@ -1,0 +1,6 @@
+[build]
+command="npm astro build"
+functions="functions" 
+publish="_site"
+
+
