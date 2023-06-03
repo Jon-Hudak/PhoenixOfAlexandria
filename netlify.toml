@@ -1,6 +1,5 @@
 [build]
-command="npm astro build"
+command="npm run build"
 functions="functions" 
-publish="_site"
 
 
