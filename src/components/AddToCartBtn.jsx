@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks'
 import { addCartItem, isCartOpen } from '../stores/cartStore'
 
-function AddToCartBtn({ id }) {
+function AddToCartBtn({ id, className }) {
 
     function addToCart(e) {
         e.preventDefault();
@@ -14,7 +14,7 @@ function AddToCartBtn({ id }) {
         addCartItem(id, format)
     }
     return (
-        <button class="button addCart" onClick={addToCart}>
+        <button class={"button addCart " +className } onClick={addToCart}>
             Add to Cart
         </button>
     )
