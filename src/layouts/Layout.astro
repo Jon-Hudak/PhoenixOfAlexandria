@@ -4,21 +4,13 @@ import "@fontsource/cormorant-garamond";
 // import { Icon } from "astro-icon";
 import Cart from "../components/Cart.jsx";
 import Navbar from "../components/Navbar.astro";
-import Modal from "../components/Modal.astro";
 import Footer from "../components/Footer.astro";
 import Head from "./Head.astro";
-import { isCartOpen } from "../stores/cartStore";
-import { loadStripe } from "@stripe/stripe-js";
-import Stripe from "stripe";
+
 
 const allProducts = await Astro.glob("../pages/store/collections/*.md");
-const stuff = await Astro.glob("../pages/store/collections/*");
-
-
 let showToTop = false;
-// let lastYPos = 0;
 let navbarChange = false;
-
 const {
   title = "Queer Book Publishing | Phoenix of Alexandria",
   description = "Custom websites for small businesses in the Greater Pittsburgh Area!",
@@ -34,9 +26,7 @@ const {
 
 <Head title={title}>
   <body class={`overflow-x-hidde min-h-screen ${background}`}>
-    <!-- <div
-      class="fixed top-0 right-0 left-0 md:bottom-0 z-10 pointer-events-none"
-    > -->
+
     <!-- <Modal> -->
     <Cart products={allProducts} client:load />
     <!-- </Modal> -->
@@ -48,7 +38,7 @@ const {
     </main>
 
     <Footer />
-    <!-- <script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.8.3/dist/lazyload.min.js"></script> -->
+
   </body>
 </Head>
 
