@@ -44,6 +44,17 @@ function Cart({ products }) {
     isCartOpen.set(!isCartOpen.get())
   }
 
+  async function handleCartSubmit(e){
+    const response = await fetch("/.netlify/functions/createCheckoutSession", {
+  method:'POST',
+ 
+  body:JSON.stringify($cart),
+  redirect:'follow',
+}).then(res=>res.json())
+.then((data)=>document.location=data.stripeUrl)
+.catch(err=>console.log("error",err.json));
+  }
+
   return (
     <> {$isCartOpen && <div tabIndex={-1} onKeyDown={handleKeyDown} onClick={toggleCart} class="fixed inset-0 bg-black/80 z-50 backdrop-blur-sm">
       <section  onClick={stopProp} class="bg-white ml-auto h-full z-40 flex flex-col  border border-neutral-800 rounded-b-md lg:w-1/2 xl:w-2/5 max-w-[30rem] pointer-events-auto animate-move-left translate-x-full ">
@@ -73,7 +84,12 @@ function Cart({ products }) {
             </article>
           )}</div>
         <div class="py-5 mt-aut flex place-items-center bg-neutral-00 border-t border-neutral-600 h-max">
-          <button class="button-md mx-4 py-5 w-full">Checkout</button>
+
+          
+          <button onClick={handleCartSubmit} class="button-md mx-4 py-5 w-full">Checkout</button>
+         
+
+
           <p class="text-right text-lg pr-6 font-bold inline-block whitespace-nowrap">Total: {$cartTotal}</p>
 
 
