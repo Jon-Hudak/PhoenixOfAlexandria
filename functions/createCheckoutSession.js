@@ -13,7 +13,7 @@ exports.handler = async function (event, context) {
     const session = await stripe.checkout.sessions.create({
         line_items: stripeLineItems,
         mode: "payment",
-        success_url: "https://www.google.com",
+        success_url: "https://phoenixofalexandria.netlify.app/",
         cancel_url: referer
     })
     console.log(session.url)
