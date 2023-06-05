@@ -4,38 +4,60 @@ import { Image } from "@astrojs/image/components";
 import publishingImg from "../images/queer-publishing.jpg";
 import editingImg from "../images/queer-writing-editors.jpg";
 import collectionImg from "../images/queer-author-collections.jpg";
-const services = [{ name: "Publishing", text: "", img: publishingImg },{ name: "Editing", text: "", img: editingImg  },{ name: "Collection", text: "", img: collectionImg  },];
+import Contact from "../components/Contact.astro";
+const services = [
+    {
+        name: "Publishing",
+        text: "At PoA, we collaborate with authors and artists on quality projects, primarily focusing on smaller works available in digital media. We do the work to make sure your work is properly copyrighted and registered. Feel free to ask us about the availability of physical publishing.",
+        img: publishingImg,
+    },
+    {
+        name: "Editing",
+        text: "Phoenix of Alexandria offers professional editing services for authors and visual artists, whether you choose to work with us or self-publish. Reach out via email to inquire about our editors' availability and rates, as we help refine your work while preserving your authentic voice.",
+        img: editingImg,
+    },
+    {
+        name: "Collections",
+        text: "Discover the pinnacle of queer literature and visual art in our curated collections. Featuring diverse voices and stunning artwork from talented queer authors and artists, our collections encompass poetry, fiction, and graphic narratives. Ask us how you can be featured in our next collective!",
+        img: collectionImg,
+    },
+];
 ---
 
 <Layout>
     <section class="mt-24 md:mt-36">
         <h1 class="h1">Services</h1>
         <div class="wrapper my-12">
-        {
-            services.map((service) => (
-                <article class="max-w-7xl mx-auto flex flex-col sm:flex-row sm:even:flex-row-reverse mt-24 first:mt-0 justify-around ">
-                    
-                    
-                        <Image class="w-full sm:w-auto object-cover"
+            {
+                services.map((service) => (
+                    <article
+                        id={service.name}
+                        class=" max-w-7xl mx-auto flex flex-col sm:flex-row sm:even:flex-row-reverse mt-24 first:mt-0 justify-around "
+                    >
+                        <Image
+                            alt={service.name}
+                            class="w-full sm:w-auto object-cover"
                             src={service.img}
                             aspectRatio={"4:3"}
                             width={400}
                         />
                         <div>
-                        <h2 class="h2 mt-0 pb-4 sm:pt-0 md:pb-8 text-left md:text-center">{service.name}</h2>
-                        <p class="sm:max-w-sm ">
-                            Lorem ipsum dolor sit amet consectetur adipisicing
-                            elit. Repellat earum consectetur officia optio harum
-                            iste repellendus nesciunt aliquid, non odio
-                            assumenda, magnam quae veniam? Molestias voluptates
-                            ullam provident quasi architecto aliquid eos quidem
-                            quam cumque minima mollitia ipsa, ad voluptas
-                            obcaecati unde autem itaque officia adipisci
-                            consequatur quis. Temporibus, quaerat?
-                        </p></div>
-                    
-                </article>
-            ))
-        }
-    </div></section>
+                            <h2 class="h2 mt-0 pb-4 sm:pt-0 md:pb-8 text-center">
+                                {service.name}
+                            </h2>
+                            <p class="sm:max-w-sm ">
+                               {service.text}
+                            </p>
+                        </div>
+                    </article>
+                ))
+            }
+        </div>
+        <Contact/>
+    </section>
 </Layout>
+<style>
+    article {
+        scroll-margin-top: 9rem;
+    }
+</style>
