@@ -8,8 +8,12 @@ import Modal from "../components/Modal.astro";
 import Footer from "../components/Footer.astro";
 import Head from "./Head.astro";
 import { isCartOpen } from "../stores/cartStore";
+import { loadStripe } from "@stripe/stripe-js";
+import Stripe from "stripe";
 
 const allProducts = await Astro.glob("../pages/store/collections/*.md");
+const stuff = await Astro.glob("../pages/store/collections/*");
+
 
 let showToTop = false;
 // let lastYPos = 0;
@@ -26,7 +30,6 @@ const {
 } = Astro.props;
 //const socialImg = new URL(ogImg, Astro.site)
 //const canonicalURL = new URL(Astro.url.pathname, Astro.site);
-
 ---
 
 <Head title={title}>
@@ -54,12 +57,14 @@ const {
     animation: none !important;
     transition: none !important;
   } */
- 
+
   html {
-    @apply focus:outline-none focus:ring focus:ring-orange-500 ring-inset;
-  }
+       @apply focus:outline-none focus:ring focus:ring-orange-700 focus:ring-inset
+  
+};
+  
   .button {
-    @apply w-full inline-block sm:w-auto bg-orange-400 hover:bg-orange-600 transition py-3 px-4 md:py-1 md:px-4 font-extrabold font-serif text-2xl md:text-lg text-black rounded-full shadow-2xl cursor-pointer text-center;
+    @apply w-full inline-block sm:w-auto bg-orange-400 hover:bg-orange-600 transition py-3 px-8 md:py-1 md:px-4 font-extrabold font-serif text-2xl md:text-lg text-black rounded-full shadow-2xl cursor-pointer text-center;
   }
   .button-md {
     @apply w-full sm:w-auto bg-orange-400 hover:bg-orange-600 transition py-3 px-4 font-extrabold font-serif text-2xl text-black inline-block rounded-full shadow-2xl cursor-pointer text-center;
@@ -77,8 +82,8 @@ const {
     @apply px-3;
   }
 
-
 </style>
+
 <!-- <script>
   import observer from "../utils/observer";
 

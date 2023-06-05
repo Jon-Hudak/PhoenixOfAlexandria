@@ -13,9 +13,8 @@ const {
     paperback,
     digital,
     exerpt,
-    id
+    id,
 } = frontmatter;
-console.log();
 ---
 
 <Layout title={`Shop ${product}`} description={exerpt}>
@@ -23,50 +22,68 @@ console.log();
         <div
             class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto py-16"
         >
-            <div id="prodImage" class="w-[20rem] mx-auto">
-                {imgs&&<Image
-                    class="w-full h-full rounded-md shadow-xl"
-                    src={imgs[0]}
-                    width={500}
-                    aspectRatio={"3:4"}
-                />}
+            <div id="prodImage" class="max-w-[20rem] mx-auto">
+                {
+                    imgs && (
+                        <Image
+                            alt={"Cover of " + product}
+                            class="w-full h-full rounded-md shadow-xl"
+                            src={imgs[0]}
+                            width={500}
+                            aspectRatio={"3:4"}
+                        />
+                    )
+                }
             </div>
-            <div id="prodInformation" class="">
+            <div id="prodInformation" class="mr-5">
                 <h1 class="h1 font-extrabold p-0">{product}</h1>
-                <p id="price" class="text-2xl mt-8">
+
+                <p id="price" class="text-2xl lg:text-3xl mt-2 text-center md:text-left">
                     $<span id="priceBox" class="">{prices.digital}</span>
                 </p>
-                <div>
-                    <span class="font-medium text-xl">Format:</span><input
-                        type="radio"
-                        name="format"
-                        value="digital"
-                        hidden
-                        checked
-                        id="digital"
-                    />
-                    <label for="digital" class="size-radio-btn check"
-                        >Digital</label
+
+                <div class="my-8 flex place-content-cente">
+                    <div
+                        class=" mx-auto md:mx-0 sm:place-content-center md:place-content-start inline-block md:flex md:flex-row gap-5"
                     >
-                    <input
-                        type="radio"
-                        name="format"
-                        value="paperback"
-                        hidden
-                        id="paperback"
-                    />
-                    <label for="paperback" class="size-radio-btn"
-                        >Paperback</label
-                    >
+                        <span
+                            class="font-medium text-xl flex place-items-center"
+                        >
+                            Format:</span
+                        >
+                        <div class="mt-2">
+                            <input
+                                type="radio"
+                                name="format"
+                                value="digital"
+                                hidden
+                                checked
+                                id="digital"
+                            />
+                            <label
+                                tabindex="0"
+                                for="digital"
+                                class="size-radio-btn check inline-block"
+                                >Digital</label
+                            >
+                            <input
+                                type="radio"
+                                name="format"
+                                value="paperback"
+                                hidden
+                                id="paperback"
+                            />
+                            <label
+                                tabindex="0"
+                                for="paperback"
+                                class="size-radio-btn inline-block"
+                                >Paperback</label
+                            >
+                        </div>
+                    </div>
                 </div>
-                <div class="mt-8">
-                    <!-- <span class="font-medium text-xl">Qty:</span>
-                    <input
-                        type="number"
-                        class="bg-neutral-300 border-2 border-neutral-500 pl-2 py-1 w-10"
-                    /> -->
-                    <AddToCartBtn client:load id={id}/>
-                    
+                <div class="mb-8 mt-5 text-center md:flex md:place-content-start lg:block">
+                    <AddToCartBtn client:load id={id} className="w-full button-md" />
                 </div>
                 <slot />
             </div>
@@ -75,37 +92,32 @@ console.log();
 </Layout>
 <style is:global>
     #prodInformation label {
+        tabindex: 0;
         @apply border-2 border-neutral-500 transition duration-200 px-3 py-2 font-medium bg-neutral-200 cursor-pointer;
     }
     #prodInformation input:checked + label {
         @apply border-orange-500  duration-200 bg-neutral-300;
     }
     #prodInformation p {
-        @apply px-0;
+        @apply px-5 md:px-0;
     }
 </style>
-<script define:vars={{prices}}>
-    
-    const formatInputs=document.querySelectorAll("input[name='format']");
-    const priceBox = document.querySelector("#priceBox"); 
-    let format = "digital";
-    
-    updateFormat();
+<script define:vars={{ prices }}>
+const formatInputs = document.querySelectorAll("input[name='format']");
+const priceBox = document.querySelector("#priceBox");
+let format = "digital";
 
-    formatInputs.forEach((input)=>{
-        input.addEventListener('change', updateFormat);
-    } )
+updateFormat();
 
-
-
+formatInputs.forEach((input) => {
+    input.addEventListener("change", updateFormat);
+});
 
     function updateFormat() {
         let format = document.querySelector(
             "input[name='format']:checked"
         ).value;
-        
-        priceBox.innerHTML=prices[format];
 
+        priceBox.innerHTML = prices[format];
     }
 </script>
-
