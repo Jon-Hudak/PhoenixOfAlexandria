@@ -3,6 +3,7 @@ id: Rivets
 layout: ../../../layouts/ProductLayout.astro
 product: Rivets
 prices: {paperback: 69.99, digital: 49.99}
+priceId: {paperback: price_1NF5lCK8lxqV9niiQVw92qSO, digital: price_1NEizpK8lxqV9nii4bdzfMmB}
 available: true
 shown: true
 imgs: ["/images/coverRivets.jpg","/images/coverRivets.jpg"]
