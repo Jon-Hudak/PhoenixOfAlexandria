@@ -28,6 +28,7 @@ const navLogo = "/images/PhoenixOfAlexandrialogo.png";
       id="primary-navigation"
       class="ml-auto md:gap-8 lg:gap-16 md:pr-10 translate-x-full md:translate-x-0 bg-black/70 md:bg-transparent fixed top-0 bottom-0 left-0 sm:left-1/3 right-0 md:flex flex-col md:relative md:inset-0 md:flex-row pt-24 md:pt-0 place-items-center transition border border-neutral-500 md:border-0 rounded-l-3xl opacity-0 md:opacity-100 backdrop-blur-lg md:backdrop-blur-none overflow-y-scrol md:overflow-y-visible overflow-x-hidden md:overflow-x-visible z-10"
     >
+      <li class="navLi delay-75 md:hidden"><a id="first" href="/">Home</a></li>
       <li class="navLi delay-100">
         <a id="first" href="/about">About</a>
       </li>
@@ -88,7 +89,10 @@ const navLogo = "/images/PhoenixOfAlexandrialogo.png";
   } 
  
   .navLi {
-    @apply text-white md:text-black bg-black/20 hover:bg-black/50 focus:bg-black/50 md:hover:bg-transparent md:focus:bg-transparent md:hover:text-orange-500 md:focus:text-orange-500 py-8 md:bg-transparent md:py-0 border md:border-0 border-x-0 border-y-neutral-700 text-right text-3xl md:text-xl font-bold px-5;
+    @apply text-white md:text-black bg-black/20 hover:bg-orange-700/80 focus:bg-orange-700/50 md:hover:bg-transparent md:focus:bg-transparent md:hover:text-orange-500 md:focus:text-orange-500  md:bg-transparent md:py-0 border md:border-0 border-x-0 border-y-neutral-700 text-right text-3xl md:text-xl font-bold  md:delay-0 transition-none;
+  }
+  .navLi a, .navLi button{
+    @apply block py-8 px-5
   }
   #hamburgerSvg {
     @apply stroke-black;
