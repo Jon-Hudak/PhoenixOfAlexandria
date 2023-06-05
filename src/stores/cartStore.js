@@ -19,9 +19,9 @@ export function addCartItem(id, format = "digital") {
         cart.setKey(cartItem, { ...existingEntry, quantity: existingEntry.quantity + 1 || 1 })
     }
     else {
-        const { name, imgSrc, url, price } = findProduct(id, format);
+        const { name, imgSrc, url, price, priceId } = findProduct(id, format);
 
-        cart.setKey(cartItem, { id, name, price, format, imgSrc, url, quantity: 1 })
+        cart.setKey(cartItem, { id, name, price, format, imgSrc, url, priceId, quantity: 1 })
 
     }
 
@@ -58,7 +58,7 @@ export function updateCartQty(item, qty = 1) {
 function findProduct(id, format) {
     const product = productStore.get().find((product) => product.frontmatter.id == id);
     
-    return { name: product.frontmatter.product, price: product.frontmatter.prices[format], imgSrc: product.frontmatter.imgs ? product.frontmatter.imgs[0] : "", url: product.url };
+    return { name: product.frontmatter.product, price: product.frontmatter.prices[format], imgSrc: product.frontmatter.imgs ? product.frontmatter.imgs[0] : "", url: product.url, priceId: product.frontmatter.priceId[format] };
 
 }
 
