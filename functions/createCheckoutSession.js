@@ -8,7 +8,7 @@ if (environment!=="production"){
 else{
      msg="is production"
 }
-exports.handler = async function (event, context) {
+export async function handler (event, context) {
     
     const referer = event.headers.referer;
     const sentCart = JSON.parse(event.body)

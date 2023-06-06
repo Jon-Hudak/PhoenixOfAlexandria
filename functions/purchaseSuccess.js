@@ -1,36 +1,46 @@
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 const environment = process.env.CONTEXT;
 const webhookSecretKey = process.env.STRIPE_WEBHOOK_SECRET
 const stripeKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
 
 const stripe = require("stripe")(stripeKey);
 
-// const AWS = require("aws-sdk");
-// const S3Bucket = "PoADownloads";
+
 
 // //Sendgrid
-// const templateId="ID GOES HERE";
-// const sgMail = require("@sendgrid/mail");
-// const fromEmail = "POA EMAIL HERE";
+const templateId=process.env.SENDGRID_TEMPLATE_ID;
+const sgMail = require("@sendgrid/mail");
+const fromEmail = "duality656@hotmail.com"; //TODO CHANGE THIS
+const S3Bucket = "poadownloads";
+const client= new S3Client({ region: "us-east-2" ,signatureVersion:'v4',
+    credentials: {
+        accessKeyId: process.env.MY_AWS_ACCESS_KEY,
+        secretAccessKey: process.env.MY_AWS_SECRET_KEY,
+        
+         
+     
+   }
+ });
 
-// function getSignedUrl(filename) {
-//     AWS.config = new AWS.Config({
-//         accessKeyId: process.env.MY_AWS_ACCESS_KEY,
-//         secretAccessKey: process.env.MYAWS_SECRET_KEY,
-//         region: "us-east-1",
-//         signatureVersion: "v4",
-//     });
+async function getSignedUrll(filename="hipster.pdf") {
+    
 
-//     const s3 = new AWS.S3();
+    //60 seconds for dev 1 week for production
+    const expirationTime = environment !== "production" ? 60 : 604800
 
-//     //60 seconds for dev 1 week for production
-//     const expirationTime = environment !== "production" ? 60 : 604800
+    const command = new GetObjectCommand({
+        Key: filename,
+        Bucket: S3Bucket,
+   });
+   const url =  await getSignedUrl(client, command, {expiresIn:expirationTime})
+   console.log(url)
+   return url;
+//    try{
+//     const response = await clientInformation. sent
+//    }
 
-//     return s3.getSignedUrl("getObject",{
-//         Key: filename,
-//         Bucket: S3Bucket,
-//         Expires: expirationTime,
-//     })
-// }
+}
 
 
 export async function handler(event, context) {
@@ -53,23 +63,26 @@ export async function handler(event, context) {
             );
             //TODO Loop over this
             const product = items.data[0]["price"]["product"]
-            // const filename= product.metadata.filename;
+            const filename= product.metadata.filename;
             const itemName = product.name;
-
-            //fulfillment
-            const signedUrl = getSignedUrl(filename);
-
             sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            //fulfillment
+            const signedUrl = await getSignedUrll(filename);
+                console.log("*x*x*x*");
+                
+                
 
-            const msg={
+
+            const msg = {
                 to: eventObject.customer_details.email,
+               
                 from: fromEmail, //verified sender
                 templateId,
-                dynamic_template_data:{
-                    itemName,filename,url:signedUrl,
+                dynamic_template_data: {
+                    itemName, filename, url: signedUrl,
                 },
             };
-            await sgMail.send(msg);
+           await sgMail.send(msg);
             console.log("Email sent!");
         }
 
