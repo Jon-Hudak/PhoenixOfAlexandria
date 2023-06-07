@@ -7,7 +7,7 @@ const webhookSecretKey = process.env.STRIPE_WEBHOOK_SECRET
 
 // const stripeKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
 const stripeKey = process.env.STRIPE_TEST_KEY;
-const sgMail = request("@sendgrid/mail");
+const sgMail = require("@sendgrid/mail");
 const stripe = require("stripe")(stripeKey);
 
 

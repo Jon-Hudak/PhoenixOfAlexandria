@@ -5,3 +5,5 @@ functions="functions"
 package = "netlify-plugin-inline-functions-env"
     [plugins.inputs]   
         include=["CONTEXT"]
+[functions]
+  external_node_modules = ["stripe","@sendgrid/mail"]
