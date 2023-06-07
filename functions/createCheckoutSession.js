@@ -1,8 +1,9 @@
 
+import Stripe from "stripe"
 const environment = process.env.CONTEXT;
 const apiKey = process.env.STRIPE_TEST_KEY
 //const apiKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
-const stripe = require("stripe")(apiKey);
+const stripe = new Stripe(apiKey);
 let msg = ""
 if (environment !== "production") {
     msg = "no production"
