@@ -1,6 +1,7 @@
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
 import sgMail from "@sendgrid/mail"
+import stripe from "stripe"
 
 const environment = process.env.CONTEXT;
 const webhookSecretKey = process.env.STRIPE_WEBHOOK_SECRET
@@ -9,7 +10,7 @@ const webhookSecretKey = process.env.STRIPE_WEBHOOK_SECRET
 // const stripeKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
 const stripeKey = process.env.STRIPE_TEST_KEY;
 //const sgMail = require("@sendgrid/mail");
-const stripe = require("stripe")(stripeKey);
+stripe=stripe(stripeKey);
 
 
 exports.handler = async function (event, context) {
