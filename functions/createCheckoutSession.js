@@ -1,15 +1,14 @@
-exports.handler= async function (event, context) {
-    const environment = process.env.CONTEXT;
-    const apiKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : process.env.STRIPE_TEST_KEY; //"ADD PRODUCTION KEY";
-    const stripe = require("stripe")(apiKey);
-    let msg = ""
-    if (environment !== "production") {
-        msg = "no production"
-    }
-    else {
-        msg = "is production"
-    }
-
+const environment = process.env.CONTEXT;
+const apiKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
+const stripe = require("stripe")(apiKey);
+let msg = ""
+if (environment !== "production") {
+    msg = "no production"
+}
+else {
+    msg = "is production"
+}
+exports.handler = async function (event, context) {
 
     const referer = event.headers.referer;
     const sentCart = JSON.parse(event.body)

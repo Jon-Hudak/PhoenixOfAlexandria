@@ -6,7 +6,7 @@ const webhookSecretKey = process.env.STRIPE_WEBHOOK_SECRET
 // const stripeKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
 const stripeKey = process.env.STRIPE_TEST_KEY;
 
-const stripe = require("stripe")(stripeKey);
+
 
 
 
@@ -47,6 +47,7 @@ async function getSignedUrll(filename = "hipster.pdf") {
 
 
 exports.handler = async function (event, context) {
+    const stripe = require("stripe")(stripeKey);
     const { body, headers } = event;
 
     //check event came from Stripe
