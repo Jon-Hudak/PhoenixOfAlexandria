@@ -1,22 +1,23 @@
-const environment=process.env.CONTEXT;
-const apiKey = environment!=="production"?process.env.STRIPE_TEST_KEY:process.env.STRIPE_TEST_KEY; //"ADD PRODUCTION KEY";
-const stripe = require("stripe")(apiKey);
-let msg=""
-if (environment!=="production"){
- msg= "no production"
-}
-else{
-     msg="is production"
-}
-export async function handler (event, context) {
-    
+export async function handler(event, context) {
+    const environment = process.env.CONTEXT;
+    const apiKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : process.env.STRIPE_TEST_KEY; //"ADD PRODUCTION KEY";
+    const stripe = require("stripe")(apiKey);
+    let msg = ""
+    if (environment !== "production") {
+        msg = "no production"
+    }
+    else {
+        msg = "is production"
+    }
+
+
     const referer = event.headers.referer;
     const sentCart = JSON.parse(event.body)
     const stripeLineItems = []
-    
+
     for (const item in sentCart) {
         stripeLineItems.push({ price: sentCart[item].priceId, quantity: sentCart[item].quantity })
-        
+
     }
     const session = await stripe.checkout.sessions.create({
         line_items: stripeLineItems,
