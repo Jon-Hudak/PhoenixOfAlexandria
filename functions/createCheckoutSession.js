@@ -1,5 +1,5 @@
 const environment=process.env.CONTEXT;
-const apiKey = environment!=="production"?process.env.STRIPE_TEST_KEY:"ADD PRODUCTION KEY";
+const apiKey = environment!=="production"?process.env.STRIPE_TEST_KEY:process.env.STRIPE_TEST_KEY; //"ADD PRODUCTION KEY";
 const stripe = require("stripe")(apiKey);
 let msg=""
 if (environment!=="production"){
