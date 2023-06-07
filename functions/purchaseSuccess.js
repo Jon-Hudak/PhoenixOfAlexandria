@@ -1,52 +1,36 @@
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
-const environment = process.env.CONTEXT;
-const webhookSecretKey = process.env.STRIPE_WEBHOOK_SECRET
-
-// const stripeKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
-const stripeKey = process.env.STRIPE_TEST_KEY;
-
-
-
-
-
-// //Sendgrid
-const templateId = process.env.SENDGRID_TEMPLATE_ID;
-const sgMail = require("@sendgrid/mail");
-const fromEmail = "duality656@hotmail.com"; //TODO CHANGE THIS
-const S3Bucket = "poadownloads";
-const client = new S3Client({
-    region: "us-east-2", signatureVersion: 'v4',
-    credentials: {
-        accessKeyId: process.env.MY_AWS_ACCESS_KEY,
-        secretAccessKey: process.env.MY_AWS_SECRET_KEY,
-
-
-
-    }
-});
-
-async function getSignedUrll(filename = "hipster.pdf") {
-
-
-    //60 seconds for dev 1 week for production
-    const expirationTime = environment !== "production" ? 60 : 604800
-
-    const command = new GetObjectCommand({
-        Key: filename,
-        Bucket: S3Bucket,
-    });
-    const url = await getSignedUrl(client, command, { expiresIn: expirationTime })
-    console.log(url)
-    return url;
-    //    try{
-    //     const response = await clientInformation. sent
-    //    }
-
-}
-
-
 exports.handler = async function (event, context) {
+    const environment = process.env.CONTEXT;
+    const webhookSecretKey = process.env.STRIPE_WEBHOOK_SECRET
+
+    // const stripeKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
+    const stripeKey = process.env.STRIPE_TEST_KEY;
+
+
+
+
+
+    // //Sendgrid
+    const templateId = process.env.SENDGRID_TEMPLATE_ID;
+    const sgMail = require("@sendgrid/mail");
+    const fromEmail = "duality656@hotmail.com"; //TODO CHANGE THIS
+    const S3Bucket = "poadownloads";
+    const client = new S3Client({
+        region: "us-east-2", signatureVersion: 'v4',
+        credentials: {
+            accessKeyId: process.env.MY_AWS_ACCESS_KEY,
+            secretAccessKey: process.env.MY_AWS_SECRET_KEY,
+
+
+
+        }
+    });
+
+
+
+
+
     const stripe = require("stripe")(stripeKey);
     const { body, headers } = event;
 
@@ -103,4 +87,23 @@ exports.handler = async function (event, context) {
     }
 
 
+
+    async function getSignedUrll(filename = "hipster.pdf") {
+
+
+        //60 seconds for dev 1 week for production
+        const expirationTime = environment !== "production" ? 60 : 604800
+
+        const command = new GetObjectCommand({
+            Key: filename,
+            Bucket: S3Bucket,
+        });
+        const url = await getSignedUrl(client, command, { expiresIn: expirationTime })
+        console.log(url)
+        return url;
+        //    try{
+        //     const response = await clientInformation. sent
+        //    }
+
+    }
 }
