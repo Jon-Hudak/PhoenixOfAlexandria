@@ -11,22 +11,23 @@ const stripe = require("stripe")(stripeKey);
 
 
 // //Sendgrid
-const templateId=process.env.SENDGRID_TEMPLATE_ID;
+const templateId = process.env.SENDGRID_TEMPLATE_ID;
 const sgMail = require("@sendgrid/mail");
 const fromEmail = "duality656@hotmail.com"; //TODO CHANGE THIS
 const S3Bucket = "poadownloads";
-const client= new S3Client({ region: "us-east-2" ,signatureVersion:'v4',
+const client = new S3Client({
+    region: "us-east-2", signatureVersion: 'v4',
     credentials: {
         accessKeyId: process.env.MY_AWS_ACCESS_KEY,
         secretAccessKey: process.env.MY_AWS_SECRET_KEY,
-        
-         
-     
-   }
- });
 
-async function getSignedUrll(filename="hipster.pdf") {
-    
+
+
+    }
+});
+
+async function getSignedUrll(filename = "hipster.pdf") {
+
 
     //60 seconds for dev 1 week for production
     const expirationTime = environment !== "production" ? 60 : 604800
@@ -34,18 +35,18 @@ async function getSignedUrll(filename="hipster.pdf") {
     const command = new GetObjectCommand({
         Key: filename,
         Bucket: S3Bucket,
-   });
-   const url =  await getSignedUrl(client, command, {expiresIn:expirationTime})
-   console.log(url)
-   return url;
-//    try{
-//     const response = await clientInformation. sent
-//    }
+    });
+    const url = await getSignedUrl(client, command, { expiresIn: expirationTime })
+    console.log(url)
+    return url;
+    //    try{
+    //     const response = await clientInformation. sent
+    //    }
 
 }
 
 
-export async function handler(event, context) {
+exports.handler = async function (event, context) {
     const { body, headers } = event;
 
     //check event came from Stripe
@@ -65,26 +66,26 @@ export async function handler(event, context) {
             );
             //TODO Loop over this
             const product = items.data[0]["price"]["product"]
-            const filename= product.metadata.filename;
+            const filename = product.metadata.filename;
             const itemName = product.name;
             sgMail.setApiKey(process.env.SENDGRID_API_KEY);
             //fulfillment
             const signedUrl = await getSignedUrll(filename);
-                console.log("*x*x*x*");
-                
-                
+            console.log("*x*x*x*");
+
+
 
 
             const msg = {
                 to: eventObject.customer_details.email,
-               
+
                 from: fromEmail, //verified sender
                 templateId,
                 dynamic_template_data: {
                     itemName, filename, url: signedUrl,
                 },
             };
-           await sgMail.send(msg);
+            await sgMail.send(msg);
             console.log("Email sent!");
         }
 
