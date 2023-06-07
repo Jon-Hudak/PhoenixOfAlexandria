@@ -1,16 +1,17 @@
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
-exports.handler = async function (event, context) {
-    const environment = process.env.CONTEXT;
-    const webhookSecretKey = process.env.STRIPE_WEBHOOK_SECRET
 
+    const environment = process.env.CONTEXT;
+    const webhookSecretKey =process.env.STRIPE_WEBHOOK_SECRET
+
+    
     // const stripeKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
     const stripeKey = process.env.STRIPE_TEST_KEY;
 
 
 
 
-
+exports.handler = async function (event, context) {
     // //Sendgrid
     const templateId = process.env.SENDGRID_TEMPLATE_ID;
     const sgMail = require("@sendgrid/mail");
