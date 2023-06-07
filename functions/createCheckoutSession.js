@@ -2,7 +2,7 @@
 const environment = process.env.CONTEXT;
 const apiKey = process.env.STRIPE_TEST_KEY
 //const apiKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
-
+const stripe = require("stripe")(apiKey);
 let msg = ""
 if (environment !== "production") {
     msg = "no production"
@@ -11,7 +11,7 @@ else {
     msg = "is production"
 }
 exports.handler = async function (event, context) {
-    const stripe = require("stripe")(apiKey);
+
     const referer = event.headers.referer;
     const sentCart = JSON.parse(event.body)
     const stripeLineItems = []
@@ -27,7 +27,7 @@ exports.handler = async function (event, context) {
             success_url: "https://phoenixofalexandria.netlify.app/",
             cancel_url: referer
         })
-        
+
 
 
         return {
