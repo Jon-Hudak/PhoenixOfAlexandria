@@ -17,7 +17,7 @@ const stripe = new Stripe(stripeKey);
 exports.handler = async function (event, context) {
     // //Sendgrid
     const templateId = process.env.SENDGRID_TEMPLATE_ID;
-    const orderConfirmationTemplateId = "d-b95ce1722acf48019611a48df8312b2c"
+    
 
     const fromEmail = "duality656@hotmail.com"; //TODO CHANGE THIS
     const S3Bucket = "poadownloads";
@@ -62,24 +62,10 @@ exports.handler = async function (event, context) {
             const product = items.data[0]["price"]["product"]
             const filename = product.metadata.filename;
             const itemName = product.nickname;
-            const lineItemList = []
-            items.data.map((item) => (lineItemList.push({ itemName: item.price.nickname.replace("_", " ").toUpperCase(), price: ((item.price.unit_amount / 100)*item.quantity).toFixed(2), quantity: item.quantity })))
-            console.log("LIT " + JSON.stringify(items.data[0]));
+            
+            
             //fulfillment
             const signedUrl = await getSignedUrll(filename);
-
-
-
-            const orderConfMsg = {
-                to: eventObject.customer_details.email,
-
-                from: fromEmail, //verified sender
-                templateId: orderConfirmationTemplateId,
-                dynamic_template_data: {
-                    order: lineItemList,
-                    orderNumber:
-                }
-            }
 
             const msg = {
                 to: eventObject.customer_details.email,
@@ -87,10 +73,10 @@ exports.handler = async function (event, context) {
                 from: fromEmail, //verified sender
                 templateId,
                 dynamic_template_data: {
-                    itemName, filename, url: signedUrl,
+                    itemName, filename, url: signedUrl, customerName:eventObject.customer_details.name,
                 },
             };
-            // await sgMail.send(orderConfMsg);
+            // await sgMail.send(msg);
             console.log("Email sent!");
         }
 
