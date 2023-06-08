@@ -73,7 +73,8 @@ function Cart({ products }) {
               </a>
               <div class="h-full  gap-3 md:gap-5 flex flex-col md:flex-row justify-between">
                 <label class='flex md:place-items-center gap-3 font-semibold' >Qty:
-                  <input onChange={(e) => cartNumberChanged(e, item)} type="number" class="w-12 pl-2 py-2 rounded-sm border border-neutral-400" value={item.quantity} />
+                {/* if the item is digital then quantity cannot be changed and maximum is 10. If not then maximum is 10. */}
+                  <input onChange={(e) => cartNumberChanged(e, item)} type="number" disabled={item.format==="digital"} max={item.format==="digital"?1:10} min="1"  class="w-12 pl-2 py-2 rounded-sm border border-neutral-400" value={item.quantity} />
                 </label>
 
 

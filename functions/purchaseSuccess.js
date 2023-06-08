@@ -4,7 +4,8 @@ import sgMail from "@sendgrid/mail"
 import Stripe from "stripe"
 
 const environment = process.env.CONTEXT;
-const webhookSecretKey = process.env.STRIPE_WEBHOOK_SECRET
+const webhookSecretKey = "whsec_eb7da9b5e8f219ba2b51559ccba2da2170c5deb7aa5e935acef91ad52c1d760d"
+//process.env.STRIPE_WEBHOOK_SECRET
 
 
 // const stripeKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
@@ -16,6 +17,7 @@ const stripe = new Stripe(stripeKey);
 exports.handler = async function (event, context) {
     // //Sendgrid
     const templateId = process.env.SENDGRID_TEMPLATE_ID;
+    const orderConfirmationTemplateId = "d-b95ce1722acf48019611a48df8312b2c"
 
     const fromEmail = "duality656@hotmail.com"; //TODO CHANGE THIS
     const S3Bucket = "poadownloads";
@@ -44,7 +46,7 @@ exports.handler = async function (event, context) {
             headers["stripe-signature"],
             webhookSecretKey,
         );
-        console.log("****" + stripeEvent.type);
+
         if (stripeEvent.type === "checkout.session.completed") {
             const eventObject = stripeEvent.data.object;
 
@@ -52,17 +54,32 @@ exports.handler = async function (event, context) {
                 eventObject.id,
                 { expand: ["data.price.product"] }
             );
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+            const orderNumber=items.data.payment_id
             //TODO Loop over this
+
             const product = items.data[0]["price"]["product"]
             const filename = product.metadata.filename;
-            const itemName = product.name;
-            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            const itemName = product.nickname;
+            const lineItemList = []
+            items.data.map((item) => (lineItemList.push({ itemName: item.price.nickname.replace("_", " ").toUpperCase(), price: ((item.price.unit_amount / 100)*item.quantity).toFixed(2), quantity: item.quantity })))
+            console.log("LIT " + JSON.stringify(items.data[0]));
             //fulfillment
             const signedUrl = await getSignedUrll(filename);
-            console.log("*x*x*x*");
 
 
 
+            const orderConfMsg = {
+                to: eventObject.customer_details.email,
+
+                from: fromEmail, //verified sender
+                templateId: orderConfirmationTemplateId,
+                dynamic_template_data: {
+                    order: lineItemList,
+                    orderNumber:
+                }
+            }
 
             const msg = {
                 to: eventObject.customer_details.email,
@@ -73,7 +90,7 @@ exports.handler = async function (event, context) {
                     itemName, filename, url: signedUrl,
                 },
             };
-            await sgMail.send(msg);
+            // await sgMail.send(orderConfMsg);
             console.log("Email sent!");
         }
 
@@ -102,7 +119,6 @@ exports.handler = async function (event, context) {
             Bucket: S3Bucket,
         });
         const url = await getSignedUrl(client, command, { expiresIn: expirationTime })
-        console.log(url)
         return url;
         //    try{
         //     const response = await clientInformation. sent
