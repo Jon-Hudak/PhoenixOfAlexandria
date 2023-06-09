@@ -9,5 +9,5 @@ export default defineConfig({
   integrations: [tailwind(), image({
     serviceEntryPoint: '@astrojs/image/sharp'
   }), preact()],
-  site: "https://www.PLACEHOLDER.com"
+  site: "https://phoenixofalexandria.netlify.app"
 });

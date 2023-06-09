@@ -14,10 +14,10 @@ const stripeKey = process.env.STRIPE_TEST_KEY;
 const stripe = new Stripe(stripeKey);
 
 
-exports.handler = async function (event, context) {
+export async function handler(event, context) {
     // //Sendgrid
-    const templateId = process.env.SENDGRID_TEMPLATE_ID;
-    
+    const templateId = "d-63d78e7e8f9f455b8a449da96e0dda6c";
+
 
     const fromEmail = "duality656@hotmail.com"; //TODO CHANGE THIS
     const S3Bucket = "poadownloads";
@@ -55,31 +55,40 @@ exports.handler = async function (event, context) {
                 { expand: ["data.price.product"] }
             );
             sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-
-            const orderNumber=items.data.payment_id
+            let filename = false;
+            let product="";
+            let itemName="";
             //TODO Loop over this
+            for (let i = 0; i < items.data.length; i++) {
+                 
+                  product = items.data[i].price;
+                  filename = product.metadata.filename
+                  itemName = product.product.name;
+                
 
-            const product = items.data[0]["price"]["product"]
-            const filename = product.metadata.filename;
-            const itemName = product.nickname;
-            
-            
-            //fulfillment
-            const signedUrl = await getSignedUrll(filename);
+                if (filename) {
+                    //fulfillment
+                    const signedUrl = await getSignedUrll(filename);
 
-            const msg = {
-                to: eventObject.customer_details.email,
+                    const msg = {
+                        to: eventObject.customer_details.email,
 
-                from: fromEmail, //verified sender
-                templateId,
-                dynamic_template_data: {
-                    itemName, filename, url: signedUrl, customerName:eventObject.customer_details.name,
-                },
-            };
-            // await sgMail.send(msg);
-            console.log("Email sent!");
+                        from: fromEmail, //verified sender
+                        templateId,
+                        dynamic_template_data: {
+                            itemName, filename, url: signedUrl, customerName: eventObject.customer_details.name,
+                        },
+                        hideWarnings: true
+                    };
+                    await sgMail.send(msg);
+                }
+                
+            }
+
         }
-
+        return {
+            statusCode: 200, msg: "Email sent!",
+        }
     }
     catch (err) {
         console.error(`Stripe webhook failed with ${err}`)
@@ -88,13 +97,11 @@ exports.handler = async function (event, context) {
             body: `Webhook error: ${err}`,
         }
     }
-    return {
-        statusCode: 200,
-    }
 
 
 
-    async function getSignedUrll(filename = "hipster.pdf") {
+
+    async function getSignedUrll(filename) {
 
 
         //60 seconds for dev 1 week for production

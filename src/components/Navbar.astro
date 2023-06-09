@@ -1,10 +1,9 @@
 ---
 import { Image } from "@astrojs/image/components";
 import { Icon } from "astro-icon";
-import Cart from "../components/Cart.jsx";
 import CartShow from "./CartShow";
 const { navbarChange, products } = Astro.props;
-const navLogo = "/images/PhoenixOfAlexandrialogo.png";
+import navLogo from "../images/PhoenixOfAlexandrialogo.png";
 ---
 
 <header
@@ -16,11 +15,14 @@ const navLogo = "/images/PhoenixOfAlexandrialogo.png";
     class="flex justify-between items-center px-3 md:px-1 h-24 md:h-36"
   >
     <a class="h-full shrink" href="/" aria-label="Homepage">
-      <img
-        class="h-full py-2 md:py-5 md:pl-8 pr-3 shrink"
-        alt=""
-        src={navLogo}
-      />
+      <Image
+        width={100}
+        aspectRatio={"4:3"}
+        format="avif"
+        class="h-full w-full py-2 md:py-5 md:pl-8 pr-3 shrink"
+        alt="Logo"
+        src={navLogo}/>
+      
     </a>
     
 
@@ -30,7 +32,7 @@ const navLogo = "/images/PhoenixOfAlexandrialogo.png";
     >
       <li class="navLi delay-75 md:hidden"><a id="first" href="/">Home</a></li>
       <li class="navLi delay-100">
-        <a id="first" href="/about">About</a>
+        <a id="" href="/about">About</a>
       </li>
 
       <li class="navLi delay-200 group flex-col">

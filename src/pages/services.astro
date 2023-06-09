@@ -22,9 +22,11 @@ const services = [
         img: collectionImg,
     },
 ];
+const title = "What PoA Can Do For You";
+const description = "We offer publishing, editing, opportunities to contribute to our collectives and more!";
 ---
 
-<Layout>
+<Layout {title} {description}>
     <section class="mt-24 md:mt-36">
         <h1 class="h1">Services</h1>
         <div class="wrapper my-12">
@@ -45,15 +47,13 @@ const services = [
                             <h2 class="h2 mt-0 pb-4 sm:pt-0 md:pb-8 text-center">
                                 {service.name}
                             </h2>
-                            <p class="sm:max-w-sm ">
-                               {service.text}
-                            </p>
+                            <p class="sm:max-w-sm ">{service.text}</p>
                         </div>
                     </article>
                 ))
             }
         </div>
-        <Contact/>
+        <Contact />
     </section>
 </Layout>
 <style>

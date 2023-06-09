@@ -13,7 +13,7 @@ let showToTop = false;
 let navbarChange = false;
 const {
   title = "Queer Book Publishing | Phoenix of Alexandria",
-  description = "Custom websites for small businesses in the Greater Pittsburgh Area!",
+  description = "Pittsburgh's #1 publisher for queer authors!",
   //ogImg = "/images/ogImg.jpg",
   url,
   footerClass,
@@ -24,7 +24,7 @@ const {
 //const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
-<Head title={title}>
+<Head {title} {description}>
   <body class={`overflow-x-hidde min-h-screen ${background}`}>
 
     <!-- <Modal> -->
