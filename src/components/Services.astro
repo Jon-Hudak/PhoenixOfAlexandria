@@ -18,7 +18,17 @@ const services = [
 ---
 
 
-    <section id="services" class="bg-secondary mt-8 pb-2">
+    <section id="services" class="bg-secondary mt-8 py-6 pb-20 relative">
+        <div class="divider-tilt-t">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill"></path>
+            </svg>
+        </div>
+        <div class="divider-tilt-b">
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M1200 120L0 16.48 0 0 1200 0 1200 120z" class="shape-fill"></path>
+            </svg>
+        </div>
         <h2 class="h2">Services</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 px-3 gap-5 md:gap-10 max-w-7xl mx-auto">
         {
@@ -31,3 +41,40 @@ const services = [
         }</div>
     </section>
 
+<style>
+
+.divider-tilt-t {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    fill:white;
+    @apply hidden md:block;
+}
+
+.divider-tilt-t svg {
+    position: relative;
+    display: block;
+    width: calc(212% + 1.3px);
+    height: 137px;
+}
+.divider-tilt-b {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+    fill:white;
+}
+
+.divider-tilt-b svg {
+    position: relative;
+    display: block;
+    width: calc(212% + 1.3px);
+    height: 137px;
+}
+</style>

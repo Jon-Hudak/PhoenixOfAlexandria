@@ -3,14 +3,13 @@ import { Picture } from "@astrojs/image/components";
 import heroBG from "../images/PhoenixOfAlexandriaHeroSplash.jpg";
 ---
 
-<section class="mt-24 md:mt-36 hero-bg-img">
+<section class="mt-24 md:mt-36 pb-16 hero-bg-img relative">
     <div class="relative t-16">
-      
         <div
             class="py-16 px-3 text-center text-white max-w-4xl mx-auto lg:mt-36"
         >
             <h1
-                class="font-serif pb-4 font-bold text-5xl md:text-8xl overflow-x-hidden leading-tight min-h-36 md:min-h-56  "
+                class="font-serif pb-4 font-bold text-5xl md:text-8xl overflow-x-hidden leading-tight min-h-36 md:min-h-56"
             >
                 Publishing for Queer Authors in Pittsburgh
             </h1>
@@ -18,17 +17,31 @@ import heroBG from "../images/PhoenixOfAlexandriaHeroSplash.jpg";
                 Showcasing the best written and visual arts from queer authors
                 and artists in the Pittsburgh area.
             </h2>
-            <a href="/store"
-                class="button-lg mt-8 md:mt-12 my-6 w-full md:w-auto "
-                >See Our Books</a>
+            <a
+                href="/store"
+                class="button-lg mt-8 md:mt-12 my-6 w-full md:w-auto"
+                >See Our Books</a
+            >
         </div>
+    </div>
+    <div class="divider-waves">
+        <svg
+            data-name="Layer 1"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+        >
+            <path
+                d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+                class="shape-fill"></path>
+        </svg>
     </div>
 </section>
 <style>
     html {
         @apply overflow-x-hidden;
     }
-    .hero-bg-img{
+    .hero-bg-img {
         position: relative;
     }
     .hero-bg-img::before {
@@ -40,8 +53,8 @@ import heroBG from "../images/PhoenixOfAlexandriaHeroSplash.jpg";
         height: 100%;
         background-image: url("/images/PhoenixOfAlexandriaHeroSplash-small.jpg");
         background-size: cover;
-        background-position: center top; 
-        filter:brightness(45%) contrast(150%);
+        background-position: center top;
+        filter: brightness(45%) contrast(150%);
     }
 
     @media only screen and (min-device-width: 500px) {
@@ -50,5 +63,22 @@ import heroBG from "../images/PhoenixOfAlexandriaHeroSplash.jpg";
         }
     }
 
-    
+    .divider-waves {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 170%;
+    overflow: hidden;
+    line-height: 0;
+    fill: #FFFFFF;
+}
+
+.divider-waves svg {
+    position: relative;
+    display: block;
+    width: calc(100% + 1.5px);
+    height: 120px;
+}
+
+
 </style>
