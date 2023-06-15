@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks'
 import { addCartItem, isCartOpen } from '../stores/cartStore'
 
-function AddToCartBtn({ id, className }) {
+function AddToCartBtn({ id, className, disabled }) {
 
     function addToCart(e) {
         e.preventDefault();
@@ -14,8 +14,8 @@ function AddToCartBtn({ id, className }) {
         addCartItem(id, format)
     }
     return (
-        <button class={"button addCart " +className } onClick={addToCart}>
-            Add to Cart
+        <button disabled={disabled} class={"button addCart disabled:bg-neutral-300 " +className } onClick={addToCart}>
+            {disabled?"Item Coming Soon!":"Add to Cart"}
         </button>
     )
 }

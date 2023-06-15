@@ -24,7 +24,7 @@ const {
         >
             <div id="prodImage" class="max-w-[22rem] mx-auto">
                 {
-                    imgs && (
+                    imgs ? (
                         <Image
                             alt={"Cover of " + product}
                             class="w-full rounded-md shadow-xl"
@@ -32,19 +32,28 @@ const {
                             width={500}
                             aspectRatio={"3:4"}
                         />
+                    ) : (
+                        <div class="relative w-full aspect-[3/4] rounded-md flex flex-col bg-gradient-to-br from-neutral-100 to-neutral-400">
+                            <span class="m-auto -rotate-45 text-4xl font-semibold">
+                                Coming Soon
+                            </span>
+                        </div>
                     )
                 }
             </div>
-            <div id="prodInformation" class="mr-5">
+            <div id="prodInformation" class="md:mr-5">
                 <h1 class="h1 font-extrabold p-0">{product}</h1>
 
-                <p id="price" class="text-2xl lg:text-3xl mt-2 text-center md:text-left">
+                <p
+                    id="price"
+                    class="text-2xl lg:text-3xl mt-2 text-center md:text-left"
+                >
                     $<span id="priceBox" class="">{prices.digital}</span>
                 </p>
 
                 <div class="my-8 flex place-content-cente">
                     <div
-                        class=" mx-auto md:mx-0 sm:place-content-center md:place-content-start inline-block md:flex md:flex-row gap-5"
+                        class="mx-auto md:mx-0 sm:place-content-center md:place-content-start inline-block md:flex md:flex-row gap-5"
                     >
                         <span
                             class="font-medium text-xl flex place-items-center"
@@ -82,8 +91,15 @@ const {
                         </div>
                     </div>
                 </div>
-                <div class="mb-8 mt-5 text-center md:flex md:place-content-start lg:block">
-                    <AddToCartBtn client:load id={id} className="w-full button-md" />
+                <div
+                    class="mb-8 mt-5 text-center md:flex md:place-content-start lg:block"
+                >
+                    <AddToCartBtn
+                        disabled={!available}
+                        client:load
+                        id={id}
+                        className="w-full button-md"
+                    />
                 </div>
                 <slot />
             </div>
@@ -109,9 +125,9 @@ let format = "digital";
 
 updateFormat();
 
-formatInputs.forEach((input) => {
-    input.addEventListener("change", updateFormat);
-});
+    formatInputs.forEach((input) => {
+        input.addEventListener("change", updateFormat);
+    });
 
     function updateFormat() {
         let format = document.querySelector(

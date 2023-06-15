@@ -17,7 +17,7 @@ const description = "A store dedicated to books written by and for queers.";
         <div class="grid md:grid-cols-2 gap-24 max-w-4xl mx-auto pb-24">
             {
                 allProducts.map((product) => {
-                    
+                    if (product.frontmatter.shown)
                     return (
                         <article class="mx-auto">
                             <a href={product.url} class="w-full h-full hover:contrast-150 transition">
