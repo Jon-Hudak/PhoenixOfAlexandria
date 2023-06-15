@@ -1,32 +1,80 @@
 ---
 import { Picture } from "@astrojs/image/components";
 import rivetsImg from "../images/person-holding-rivets.jpg";
+import sexnatImg from "../images/sexnat.jpg";
 ---
 
 <section class="">
-    <h2 class="h2">Creating Change Through Storytelling</h2>
+    <div>
+        <h2 class="h2">Creating Change Through Storytelling</h2>
 
-    <div class="flex flex-col md:flex-row-reverse gap-8 mx-auto max-w-5xl">
-        <div class="mx-auto md:w-1/2">
-            <Picture class="" alt="Person holding up Rivets" src={rivetsImg} widths={[300, 800]} width={600} format="avif" aspectRatio={"3:2"} />
-        </div>
-        <div class="md:w-1/2">
-            <p class="">
-                At Phoenix of Alexandria, we believe in the power of
-                storytelling to inspire change and boost underrepresented
-                voices. We are a queer owned, queer ocused company that
-                showcases the best in written and visual art produced by queer
-                authors and artists in the Pittsburgh area and beyond. From
-                literary collectives to collaborative projects, we are committed
-                to creating quality products that readers will love. Whether
-                you're an author or artist looking to get your work published or
-                a reader searching for diverse, inclusive stories, we're
-                committed to helping you amplify and empower your voice.
-            </p>
-            <div class="px-3">
-                <a href="/store" class="button mt-5">View Our Collections</a>
+        <div class="flex flex-col md:flex-row-reverse gap-8 mx-auto max-w-5xl">
+            <div class="mx-auto md:w-1/2">
+                <Picture
+                    class=""
+                    alt="Person holding up Rivets"
+                    src={rivetsImg}
+                    widths={[300, 800]}
+                    width={600}
+                    format="avif"
+                    aspectRatio={"3:2"}
+                />
+            </div>
+            <div class="md:w-1/2">
+                <p class="">
+                    At Phoenix of Alexandria, we believe in the power of
+                    storytelling to inspire change and boost underrepresented
+                    voices. We are a queer-owned, queer-focused company that
+                    showcases the best in written and visual art produced by
+                    queer authors and artists in the Pittsburgh area and beyond.
+                    From literary collectives to collaborative projects, we are
+                    committed to creating quality products that readers will
+                    love. Whether you're an author or artist looking to get your
+                    work published or a reader searching for diverse, inclusive
+                    stories, we're committed to helping you amplify and empower
+                    your voice.
+                </p>
+                <div class="px-3">
+                    <a href="/store" class="button mt-5">View Our Collections</a
+                    >
+                </div>
             </div>
         </div>
     </div>
-    
+    <div>
+        <h2 class="h2">Support us by ordering our new collection: Sex n'At</h2>
+
+        <div class="flex flex-col md:flex-row gap-8 mx-auto max-w-5xl">
+            <div class="mx-auto md:w-1/2">
+                <Picture
+                    class=""
+                    alt="Person holding up Rivets"
+                    src={sexnatImg}
+                    widths={[300, 800]}
+                    width={600}
+                    format="avif"
+                    aspectRatio={"3:2"}
+                />
+            </div>
+            <div class="md:w-1/2">
+                <p class="">
+                    Pittsburgh's very own queer-owned publishing company,
+                    Phoenix of Alexandria, is back with our second publication-
+                    "Sex N'at"! We've been working with great local writers to
+                    bring you a steamy collection of erotic tales that could
+                    only come from the minds of Yinzer Gays. By contributing to
+                    our fundraiser, you are securing a pre-order of your copy of
+                    "Sex N'at", and so much more!</p>
+
+                    <p class="mt-4">Your contribution will help fund: Compensation for all contributors, editors, writers,
+                    formatters, and visual artists, printing costs, additional merch for tabling events/release party Future
+                    publication projects, and reprint funds</p>
+                </p>
+                <div class="px-3">
+                    <a href="https://www.indiegogo.com/projects/sex-n-at/" target="_blank" class="button mt-5">Visit the IndieGoGo</a
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
