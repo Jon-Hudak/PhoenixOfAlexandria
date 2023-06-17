@@ -2,7 +2,7 @@
 id: SexNAt
 layout: ../../../layouts/ProductLayout.astro
 product: Sex n'At
-prices: {paperback: 69.99, digital: 49.99}
+prices: {paperback: 0.00, digital: 0.00}
 priceId: {paperback: price_1NF6NfK8lxqV9niigs1QexBz, digital: price_1NF6NeK8lxqV9niiXvyMmvkD}
 available: false
 shown: true
