@@ -1,4 +1,5 @@
 ---
+import {cart} from "../stores/cartStore"
 import Layout from "../layouts/Layout.astro";
 const title="Order Complete";
 const description="Order confirmation"
@@ -13,19 +14,24 @@ const description="Order confirmation"
             <h2 class="h2 font-sans font-medium text-3xl text-center mt-5 py-0">
                 Your order has been completed.
             </h2>
-            <p class="my-5">
+            <p class="my-12">
                 You will receive an email from Stripe to confirm your payment.
                 If you ordered any digital products, you will receive a separate email
                 from us for each one. The download links will expire after 7
-                days. Be sure to check your spam folder.
+                days. Please be sure to check your spam folder.
             </p><p class="my-5">
                 If you have any problems, please reach out to us at <a
                     href="mailto:phoenixofalexandria@gmail.com"
                     class="text-blue-500 font-medium underline"
-                    >phoenixofalexandria@gmail.com</a
+                    >info@phoenixofalexandria.gay</a
                 >.
             </p>
-            <a href="/" class="button-md mb-8">Take Me To The Home Page</a>
+            <a href="/" class="button-md mb-12 mt-16">Take Me To The Home Page</a>
         </div>
     </section>
+    <script >
+        import {cart} from "../stores/cartStore";
+    cart.set({});
+        
+    </script>
 </Layout>
