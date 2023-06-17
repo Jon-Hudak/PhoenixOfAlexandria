@@ -10,6 +10,6 @@ imgs:
 category: Collections
 paperback: false
 digital: false
-exerpt: The Sex n'At collective showcases the best of queer literature and visual art from the Pittsburgh area.
+exerpt: Pittsburgh's very own queer-owned publishing company, Phoenix of Alexandria, is back with our second publication- "Sex N'at"!
 ---
-The Sex n'At collective showcases the best of queer literature and visual art from the Pittsburgh area. This powerful compilation features a diverse range of literary voices as well as stunning visual artwork from some of the city's most talented queer authors and artists. From poetry to fiction to graphic narratives, Sex n'At offers readers a glimpse into the rich and vibrant queer community of Pittsburgh. This collection is not only a celebration of the city's creative spirit, but also a bold and inspiring declaration of queer visibility and pride.
+Pittsburgh's very own queer-owned publishing company, Phoenix of Alexandria, is back with our second publication- "Sex N'at"! We've been working with great local writers to bring you a steamy collection of erotic tales that could only come from the minds of Yinzer Gays.
