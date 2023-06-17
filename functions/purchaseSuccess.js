@@ -4,22 +4,21 @@ import sgMail from "@sendgrid/mail"
 import Stripe from "stripe"
 
 const environment = process.env.CONTEXT;
-const webhookSecretKey = "whsec_eb7da9b5e8f219ba2b51559ccba2da2170c5deb7aa5e935acef91ad52c1d760d"
-//process.env.STRIPE_WEBHOOK_SECRET
+
+const webhookSecretKey = environment !== "production" ? process.env.STRIPE_WEBHOOK_TEST : process.env.STRIPE_WEBHOOK_SECRET;
+
+const stripeKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : process.env.STRIPE_LIVE_KEY;
 
 
-// const stripeKey = environment !== "production" ? process.env.STRIPE_TEST_KEY : "ADD PRODUCTION KEY";
-const stripeKey = process.env.STRIPE_TEST_KEY;
-//const sgMail = require("@sendgrid/mail");
 const stripe = new Stripe(stripeKey);
 
 
 export async function handler(event, context) {
     // //Sendgrid
     const templateId = "d-63d78e7e8f9f455b8a449da96e0dda6c";
+    const fromEmail = "phoenixofalexandriapgh@gmail.com";
 
 
-    const fromEmail = "duality656@hotmail.com"; //TODO CHANGE THIS
     const S3Bucket = "poadownloads";
     const client = new S3Client({
         region: "us-east-2", signatureVersion: 'v4',
@@ -54,18 +53,26 @@ export async function handler(event, context) {
                 eventObject.id,
                 { expand: ["data.price.product"] }
             );
+
+
             sgMail.setApiKey(process.env.SENDGRID_API_KEY);
             let filename = false;
-            let product="";
-            let itemName="";
-            //TODO Loop over this
-            for (let i = 0; i < items.data.length; i++) {
-                 
-                  product = items.data[i].price;
-                  filename = product.metadata.filename
-                  itemName = product.product.name;
-                
+            let product = "";
+            let itemName = "";
+            let format = "";
 
+            for (let i = 0; i < items.data.length; i++) {
+
+                product = items.data[i].price;
+                filename = product.product.metadata.filename
+                itemName = product.product.name;
+                format = product.nickname.replace(/^[a-z0-9]*[_]/i, "");
+
+                if (format !== "digital" || format !== "paperback") { //if new formats are added to Stripe, add more here
+                    throw new Error('Stripe price nickname needs to be in this format title_format , example: bookTitle_digital (format alone will also work)')
+                }
+
+                console.log(format);
                 if (filename) {
                     //fulfillment
                     const signedUrl = await getSignedUrll(filename);
@@ -80,9 +87,11 @@ export async function handler(event, context) {
                         },
                         hideWarnings: true
                     };
-                    await sgMail.send(msg);
+                    if (format === "digital") {
+                        await sgMail.send(msg);
+                    }
                 }
-                
+
             }
 
         }
